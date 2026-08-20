@@ -1,0 +1,17 @@
+load_manrope_webfont:
+  type: bool
+  default: true
+
+use_gilroy_headings:
+  type: bool
+  default: false
+
+gilroy_stylesheet_url:
+  type: string
+  default: ""
+
+base_border_radius:
+  type: integer
+  default: 4
+  min: 0
+  max: 16

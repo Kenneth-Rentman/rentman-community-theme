@@ -1,0 +1,65 @@
+// ---------------------------------------------------------------------------
+// Rentman Community — token layer
+//
+// Colour lives in the "Rentman Light" / "Rentman Dark" schemes in about.json.
+// This file carries only what a colour scheme cannot express: typography,
+// radii, and the raw brand swatches for later components to reference.
+//
+// Deliberately no layout. Layout comes after we agree the direction.
+// ---------------------------------------------------------------------------
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  // Brand swatches, lifted from rentman.io
+  --rentman-orange: #ff5e1d;
+  --rentman-orange-soft: #ffbfa5;
+  --rentman-orange-muted: #ffdfd2;
+  --rentman-beige: #eee9e1;
+  --rentman-beige-soft: #f3efea;
+  --rentman-beige-muted: #f8f6f3;
+  --rentman-beige-dark: #d9d4cd;
+  --rentman-ink: #202121;
+  --rentman-black: #080808;
+  --rentman-green: #2aba67;
+  --rentman-yellow: #fcbd01;
+  --rentman-purple: #635bf9;
+
+  // Typography. Gilroy is licensed, so headings fall back to Manrope
+  // until a self-hosted webfont is in place.
+  --rentman-font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --rentman-font-heading: var(--rentman-font-body);
+
+  --font-family: var(--rentman-font-body);
+  --heading-font-family: var(--rentman-font-heading);
+
+  --rentman-radius: 4px;
+}
+
+body {
+  font-family: var(--rentman-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.topic-title {
+  font-family: var(--rentman-font-heading);
+  letter-spacing: -0.01em;
+}
+
+// Rentman uses tight, near-square corners rather than Air's softer pills.
+.btn,
+.select-kit .select-kit-header,
+input[type="text"],
+input[type="search"],
+textarea,
+.d-modal .modal-inner-container {
+  border-radius: var(--rentman-radius);
+}

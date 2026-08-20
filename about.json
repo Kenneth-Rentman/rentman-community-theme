@@ -1,0 +1,43 @@
+{
+  "name": "Rentman Community",
+  "authors": "Rentman",
+  "about_url": "https://github.com/rentmanpublic/rentman-community-theme",
+  "license_url": "https://github.com/rentmanpublic/rentman-community-theme/blob/main/LICENSE",
+  "components": [
+    "https://github.com/discourse/discourse-minimal-category-boxes.git",
+    "https://github.com/discourse/discourse-clickable-topic.git"
+  ],
+  "modifiers": {
+    "serialize_topic_excerpts": true
+  },
+  "color_schemes": {
+    "Rentman Light": {
+      "primary": "202121",
+      "secondary": "ffffff",
+      "tertiary": "ff5e1d",
+      "quaternary": "6b6c6c",
+      "header_background": "ffffff",
+      "header_primary": "202121",
+      "highlight": "fcbd01",
+      "danger": "d40000",
+      "success": "2aba67",
+      "love": "ff5e1d",
+      "selected": "ffdfd2",
+      "hover": "f8f6f3"
+    },
+    "Rentman Dark": {
+      "primary": "eee9e1",
+      "secondary": "202121",
+      "tertiary": "ff5e1d",
+      "quaternary": "d9d4cd",
+      "header_background": "080808",
+      "header_primary": "eee9e1",
+      "highlight": "fcbd01",
+      "danger": "d40000",
+      "success": "2aba67",
+      "love": "ff5e1d",
+      "selected": "3a2a20",
+      "hover": "2d2d2d"
+    }
+  }
+}

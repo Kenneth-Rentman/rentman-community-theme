@@ -1,0 +1,8 @@
+en:
+  theme_metadata:
+    description: "Rentman Community — the Discourse theme for community.rentman.io. Sibling to the Rentman Support Center."
+    settings:
+      load_manrope_webfont: "Load Manrope from Google Fonts. Turn off if you self-host the font instead."
+      use_gilroy_headings: "Use Gilroy for headings. Requires a self-hosted webfont licence — set the stylesheet URL below."
+      gilroy_stylesheet_url: "URL of a stylesheet that declares the Gilroy @font-face rules."
+      base_border_radius: "Corner radius in pixels for buttons, inputs and cards."
