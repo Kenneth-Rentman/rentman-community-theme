@@ -12,6 +12,13 @@ lockup and language switcher.
 **v0.1 — token layer only.** Colour, typography and radii. No layout changes
 yet; those follow once the direction is agreed.
 
+Living at [`Kenneth-Rentman/rentman-community-theme`](https://github.com/Kenneth-Rentman/rentman-community-theme)
+during the exploration phase. To be transferred to the `rentmanpublic` org
+before it goes anywhere real — Discourse then needs its repo URL updated to
+match.
+
+No licence yet. `support-center-theme` uses Apache 2.0 if we want to match.
+
 ## Installing on a site
 
 Admin → Customize → Themes → **Install** → *From a git repository*, using this

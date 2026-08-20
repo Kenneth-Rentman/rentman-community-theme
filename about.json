@@ -1,8 +1,7 @@
 {
   "name": "Rentman Community",
   "authors": "Rentman",
-  "about_url": "https://github.com/rentmanpublic/rentman-community-theme",
-  "license_url": "https://github.com/rentmanpublic/rentman-community-theme/blob/main/LICENSE",
+  "about_url": "https://github.com/Kenneth-Rentman/rentman-community-theme",
   "components": [
     "https://github.com/discourse/discourse-minimal-category-boxes.git",
     "https://github.com/discourse/discourse-clickable-topic.git"
