@@ -180,3 +180,32 @@ header.b-header {
 .b-header .contents ul.icons .d-icon {
   color: var(--rentman-ink);
 }
+
+// ---------------------------------------------------------------------------
+// Discourse's own header — "Rentman Community" wordmark
+//
+// The Rentman mark lives in the brand bar above, so the logo image here would
+// be a duplicate. Hidden and replaced with a text wordmark, rendered by the
+// home-logo-contents connector.
+//
+// Theme-scoped deliberately: Admin → Branding would change the logo and title
+// site-wide for every visitor, not just inside the preview.
+// ---------------------------------------------------------------------------
+
+.d-header {
+  #site-logo,
+  .home-logo-wrapper img.logo-big,
+  .home-logo-wrapper img.logo-small {
+    display: none;
+  }
+
+  .rm-wordmark {
+    font-family: var(--rentman-font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--rentman-ink);
+    white-space: nowrap;
+  }
+}
