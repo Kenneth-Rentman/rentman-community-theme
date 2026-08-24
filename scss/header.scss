@@ -1,59 +1,71 @@
 // ---------------------------------------------------------------------------
 // Block 1 — Rentman utility strip
 //
-// The thin row of sibling-property links that ties the Community to the rest
-// of the Rentman estate. Ported from support-center-theme's header spec:
-// 1160px container, 14px links, 4px radii, ink text.
+// Restyles Discourse's official Brand Header component (auto-installed via
+// about.json) to the support-center-theme spec: 1160px container, 13px ink
+// links, 4px radii, warm neutral background.
 //
-// Deliberately NOT the main community nav (Home / Q&A / Spaces / …). That
-// depends on an information architecture that hasn't been decided yet, so
-// building it now would mean guessing twice.
+// The component ships background: var(--tertiary) with white text — on the
+// Rentman orange that is 3.06:1, so it would fail AA. Everything below is a
+// deliberate override, not decoration.
+//
+// Component stylesheets load AFTER the parent theme's, so every selector here
+// is one step more specific than the component's own. Don't "simplify" them.
+//
+// Config lives in the component's admin settings (links, logo, outlet), not
+// here. Deliberately no logo or brand name: Discourse's own header already
+// carries the Rentman mark directly below this strip.
 // ---------------------------------------------------------------------------
 
-.rm-utility {
-  background: var(--rentman-beige-muted);
+// element+class beats the component's bare `.b-header`
+header.b-header {
+  background-color: var(--rentman-beige-muted);
   font-family: var(--rentman-font-body);
 
-  // Sits above Discourse's own sticky header and scrolls away with the page.
-  &__inner {
+  .wrap {
     max-width: 1160px;
     margin: 0 auto;
     padding: 0 5%;
-    height: 38px;
-    display: flex;
-    align-items: center;
+  }
+
+  .contents {
+    padding: 0;
+    min-height: 38px;
     justify-content: flex-end;
-    gap: 2px;
   }
 
-  &__link {
-    // #202121 on #f8f6f3 → 14.6:1
+  .panel {
+    margin: 0 0 0 auto;
+  }
+}
+
+// three classes beats the component's `.b-header .nav-pills > li > a`
+.b-header .contents .nav-pills > li > a {
+  // #202121 on #f8f6f3 → 14.6:1
+  color: var(--rentman-ink);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: var(--rentman-radius);
+  white-space: nowrap;
+  transition: background 0.12s ease;
+
+  &:hover,
+  &:focus {
+    // #202121 on #eee9e1 → 12.7:1
     color: var(--rentman-ink);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1;
-    padding: 6px 10px;
-    border-radius: var(--rentman-radius);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background 0.12s ease;
-
-    &:hover,
-    &:focus {
-      background: var(--rentman-beige);
-      color: var(--rentman-ink);
-      text-decoration: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--rentman-orange-text);
-      outline-offset: -2px;
-    }
+    background-color: var(--rentman-beige);
   }
 
-  // Below tablet the strip would crowd the header; Discourse's own hamburger
-  // menu remains the way in on small screens.
-  @media (max-width: 767px) {
-    display: none;
+  &:focus-visible {
+    outline: 2px solid var(--rentman-orange-text);
+    outline-offset: -2px;
   }
+}
+
+// Icon links, if any get configured later
+.b-header .contents ul.icons a,
+.b-header .contents ul.icons .d-icon {
+  color: var(--rentman-ink);
 }
