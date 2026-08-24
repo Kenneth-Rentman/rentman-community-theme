@@ -1,0 +1,59 @@
+// ---------------------------------------------------------------------------
+// Block 1 — Rentman utility strip
+//
+// The thin row of sibling-property links that ties the Community to the rest
+// of the Rentman estate. Ported from support-center-theme's header spec:
+// 1160px container, 14px links, 4px radii, ink text.
+//
+// Deliberately NOT the main community nav (Home / Q&A / Spaces / …). That
+// depends on an information architecture that hasn't been decided yet, so
+// building it now would mean guessing twice.
+// ---------------------------------------------------------------------------
+
+.rm-utility {
+  background: var(--rentman-beige-muted);
+  font-family: var(--rentman-font-body);
+
+  // Sits above Discourse's own sticky header and scrolls away with the page.
+  &__inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 5%;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+
+  &__link {
+    // #202121 on #f8f6f3 → 14.6:1
+    color: var(--rentman-ink);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: var(--rentman-radius);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.12s ease;
+
+    &:hover,
+    &:focus {
+      background: var(--rentman-beige);
+      color: var(--rentman-ink);
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--rentman-orange-text);
+      outline-offset: -2px;
+    }
+  }
+
+  // Below tablet the strip would crowd the header; Discourse's own hamburger
+  // menu remains the way in on small screens.
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
