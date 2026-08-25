@@ -36,10 +36,10 @@
   // not a divergence from it. Don't "fix" it back to Gilroy.
   --rentman-font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
-  --rentman-font-heading: "Manrope", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  // Display face for the hero/banner. Uncontested — the pilot uses Manrope
-  // here too; the disagreement is only about h1–h6 elsewhere.
+  // Section headings (h1–h6) are Poppins 700, per the pilot. Manrope is
+  // reserved for display — the hero/banner only — which is what keeps it
+  // feeling like a display face rather than a default.
+  --rentman-font-heading: var(--rentman-font-body);
   --rentman-font-display: "Manrope", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
@@ -47,17 +47,18 @@
   --heading-font-family: var(--rentman-font-heading);
 
   // ===========================================================================
-  // CONTESTED — the pilot CSS and the Support Center disagree here. Values
-  // below are the Support Center's; the pilot's are in the comments. Awaiting
-  // a side-by-side decision. Flipping the system means editing only these.
+  // Geometry — the MCP pilot's system, chosen 2026-08-25 over the Support
+  // Center's flat 4px after a side-by-side.
+  //
+  // The Support Center's 4px is a Zendesk button-and-input radius; it has no
+  // cards or banners, so extending it to those surfaces was extrapolation.
+  // The pilot's scale is real and already lived-in.
   // ===========================================================================
-  --rentman-radius: 4px; //  pilot: 8px
-  --rentman-radius-lg: 8px; //  pilot: 8px  (agreed — the button)
-  --rentman-radius-xl: 12px; //  pilot: 12px (cards)
-  --rentman-radius-2xl: 16px; //  pilot: 16px (banner)
-  --rentman-page-bg: #ffffff; //  pilot: #faf7f2
-  // --rentman-font-heading below is Manrope; pilot uses Poppins 700 for
-  // h1–h6 and reserves Manrope for display only.
+  --rentman-radius: 8px; // buttons, inputs
+  --rentman-radius-lg: 8px;
+  --rentman-radius-xl: 12px; // cards
+  --rentman-radius-2xl: 16px; // banner
+  --rentman-page-bg: #faf7f2; // warm ground, not white
   // ===========================================================================
 
   --rentman-border: #eee9e1; // pilot's warm hairline
@@ -107,13 +108,11 @@ h6,
 .title,
 .topic-title {
   font-family: var(--rentman-font-heading);
-  // Manrope is only loaded at 700+, matching the Support Center. Without
-  // this, a heading asking for 400/500 gets a faux-bold or falls back.
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 
-// Rentman uses tight, near-square corners rather than Air's softer pills.
+// Corner radii from the pilot's scale.
 .btn,
 .select-kit .select-kit-header,
 input[type="text"],
@@ -227,7 +226,7 @@ a {
 }
 
 .btn-primary {
-  border-radius: 8px;
+  // radius comes from --rentman-radius via the .btn rule above
   font-weight: 500;
 }
 

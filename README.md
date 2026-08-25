@@ -68,6 +68,27 @@ the two sites share a cache entry.
 **Poppins is the sanctioned substitute** — this matches brand rather than
 departing from it.
 
+Manrope is reserved for **display** — the hero/banner only. Section headings
+(`h1`–`h6`) are Poppins 700.
+
+## Geometry
+
+The MCP pilot's scale, chosen over the Support Center's flat 4px after a
+side-by-side comparison. The Support Center is a Zendesk help centre with no
+cards or banners, so its 4px is a button radius — extending it to other
+surfaces was extrapolation.
+
+| token | value | used for |
+| --- | --- | --- |
+| `--rentman-radius` | `8px` | buttons, inputs |
+| `--rentman-radius-xl` | `12px` | cards |
+| `--rentman-radius-2xl` | `16px` | banner |
+| `--rentman-page-bg` | `#faf7f2` | page ground |
+
+Orange is an **accent, never text**. `#ff5e1d` is 3.06:1 on white — below AA
+for body copy — so text is ink and orange appears only as underlines, hovers,
+focus rings and icons, which answer to the 3:1 UI threshold instead.
+
 ## Layout
 
 ```
