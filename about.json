@@ -4,8 +4,7 @@
   "about_url": "https://github.com/Kenneth-Rentman/rentman-community-theme",
   "components": [
     "https://github.com/discourse/discourse-minimal-category-boxes.git",
-    "https://github.com/discourse/discourse-clickable-topic.git",
-    "https://github.com/discourse/discourse-brand-header.git"
+    "https://github.com/discourse/discourse-clickable-topic.git"
   ],
   "modifiers": {
     "serialize_topic_excerpts": true

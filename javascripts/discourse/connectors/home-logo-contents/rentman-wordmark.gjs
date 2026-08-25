@@ -1,12 +1,15 @@
 {{!--
-  Renders the "Rentman Community" wordmark in Discourse's own header, in
-  place of the site logo image.
+  Completes the Support Center lockup in Discourse's own header:
 
-  Done in the theme rather than via Admin → Branding on purpose: the site
-  logo and title are SITE-WIDE settings that would change mcp-beta for every
-  visitor immediately. This stays scoped to the theme, so it only appears for
-  whoever is previewing it.
+      [ Rentman logo ] | Community
 
-  The logo image itself is hidden in common.scss.
+  The logo itself is Discourse's own site logo (a site-wide Branding
+  setting, left untouched). This connector only adds the divider and the
+  property label after it.
+
+  Kept in the theme rather than Admin → Branding on purpose: the site logo
+  and title are site-wide and would change mcp-beta for every visitor, not
+  just whoever is previewing.
 --}}
-<span class="rm-wordmark">Rentman Community</span>
+<span class="rm-lockup__divider" aria-hidden="true"></span>
+<span class="rm-lockup__label">Community</span>

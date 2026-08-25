@@ -36,6 +36,10 @@
 
   --rentman-radius: 4px;
 
+  // Support Center header neutrals
+  --rentman-border: #e5e5e5;
+  --rentman-muted: #6b7280; // 4.83:1 on white
+
   // -------------------------------------------------------------------------
   // Contrast
   //
@@ -96,116 +100,58 @@ textarea,
 }
 
 // ---------------------------------------------------------------------------
-// Block 1 — Rentman utility strip
+// Block 1 — header
 //
-// Restyles Discourse's official Brand Header component (auto-installed via
-// about.json) to the support-center-theme spec: 1160px container, 13px ink
-// links, 4px radii, warm neutral background.
+// One bar, styled to match the Support Center rather than adding a second
+// strip above it. The lockup is:
 //
-// The component ships background: var(--tertiary) with white text — on the
-// Rentman orange that is 3.06:1, so it would fail AA. Everything below is a
-// deliberate override, not decoration.
+//     [ Rentman logo ] | Community
 //
-// Component stylesheets load AFTER the parent theme's, so every selector here
-// is one step more specific than the component's own. Don't "simplify" them.
+// Logo is Discourse's own site logo (site-wide Branding setting, untouched).
+// The divider and label come from the home-logo-contents connector.
 //
-// Config lives in the component's admin settings (links, logo, outlet), not
-// here. The logo goes in THIS bar; Discourse's header below carries the
-// "Rentman Community" wordmark, mirroring the Support Center lockup.
+// Spec ported from support-center-theme: 26px logo, 1px #e5e5e5 rule,
+// 14px/500 muted label, 14px gap either side of the divider.
 // ---------------------------------------------------------------------------
 
-// element+class beats the component's bare `.b-header`
-header.b-header {
-  background-color: var(--rentman-beige-muted);
-  font-family: var(--rentman-font-body);
+.d-header {
+  border-bottom: 1px solid var(--rentman-border);
+  box-shadow: none;
 
-  .wrap {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 0 5%;
-  }
-
-  // Logo sits left, links follow it — the Support Center arrangement.
-  .contents {
-    padding: 0;
-    min-height: 44px;
-    gap: 8px;
-  }
-
-  .title {
-    float: none;
-    margin: 0 16px 0 0;
+  .home-logo-wrapper,
+  .home-logo-wrapper a {
     display: flex;
     align-items: center;
   }
 
-  #brand-logo {
-    max-height: 22px;
+  #site-logo {
+    max-height: 26px;
     width: auto;
     display: block;
   }
 
-  .panel {
-    margin: 0 0 0 auto;
-  }
-}
-
-// three classes beats the component's `.b-header .nav-pills > li > a`
-.b-header .contents .nav-pills > li > a {
-  // #202121 on #f8f6f3 → 14.6:1
-  color: var(--rentman-ink);
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1;
-  padding: 6px 10px;
-  border-radius: var(--rentman-radius);
-  white-space: nowrap;
-  transition: background 0.12s ease;
-
-  &:hover,
-  &:focus {
-    // #202121 on #eee9e1 → 12.7:1
-    color: var(--rentman-ink);
-    background-color: var(--rentman-beige);
+  .rm-lockup__divider {
+    flex: 0 0 auto;
+    width: 1px;
+    height: 20px;
+    margin: 0 14px;
+    background: var(--rentman-border);
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--rentman-orange-text);
-    outline-offset: -2px;
-  }
-}
-
-// Icon links, if any get configured later
-.b-header .contents ul.icons a,
-.b-header .contents ul.icons .d-icon {
-  color: var(--rentman-ink);
-}
-
-// ---------------------------------------------------------------------------
-// Discourse's own header — "Rentman Community" wordmark
-//
-// The Rentman mark lives in the brand bar above, so the logo image here would
-// be a duplicate. Hidden and replaced with a text wordmark, rendered by the
-// home-logo-contents connector.
-//
-// Theme-scoped deliberately: Admin → Branding would change the logo and title
-// site-wide for every visitor, not just inside the preview.
-// ---------------------------------------------------------------------------
-
-.d-header {
-  #site-logo,
-  .home-logo-wrapper img.logo-big,
-  .home-logo-wrapper img.logo-small {
-    display: none;
-  }
-
-  .rm-wordmark {
-    font-family: var(--rentman-font-heading);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  .rm-lockup__label {
+    font-family: var(--rentman-font-body);
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1;
-    color: var(--rentman-ink);
+    color: var(--rentman-muted);
     white-space: nowrap;
+  }
+
+  // The label is secondary to the logo; below tablet the logo carries it alone.
+  @media (max-width: 767px) {
+    .rm-lockup__divider,
+    .rm-lockup__label {
+      display: none;
+    }
   }
 }
