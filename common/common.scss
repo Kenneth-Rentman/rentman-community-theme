@@ -118,6 +118,9 @@ textarea,
   border-bottom: 1px solid var(--rentman-border);
   box-shadow: none;
 
+  // The label is a sibling of the logo (home-logo__after), so the wrapper
+  // around both has to lay them out on one row.
+  .home-logo-wrapper-outlet,
   .home-logo-wrapper,
   .home-logo-wrapper a {
     display: flex;
