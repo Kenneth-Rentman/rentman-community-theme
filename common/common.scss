@@ -38,15 +38,31 @@
     Roboto, Helvetica, Arial, sans-serif;
   --rentman-font-heading: "Manrope", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  // Display face for the hero/banner. Uncontested — the pilot uses Manrope
+  // here too; the disagreement is only about h1–h6 elsewhere.
+  --rentman-font-display: "Manrope", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --font-family: var(--rentman-font-body);
   --heading-font-family: var(--rentman-font-heading);
 
-  --rentman-radius: 4px;
+  // ===========================================================================
+  // CONTESTED — the pilot CSS and the Support Center disagree here. Values
+  // below are the Support Center's; the pilot's are in the comments. Awaiting
+  // a side-by-side decision. Flipping the system means editing only these.
+  // ===========================================================================
+  --rentman-radius: 4px; //  pilot: 8px
+  --rentman-radius-lg: 8px; //  pilot: 8px  (agreed — the button)
+  --rentman-radius-xl: 12px; //  pilot: 12px (cards)
+  --rentman-radius-2xl: 16px; //  pilot: 16px (banner)
+  --rentman-page-bg: #ffffff; //  pilot: #faf7f2
+  // --rentman-font-heading below is Manrope; pilot uses Poppins 700 for
+  // h1–h6 and reserves Manrope for display only.
+  // ===========================================================================
 
-  // Support Center header neutrals
-  --rentman-border: #e5e5e5;
+  --rentman-border: #eee9e1; // pilot's warm hairline
   --rentman-muted: #6b7280; // 4.83:1 on white
+  --rentman-muted-text: #5a5a5a; // pilot's description grey, 7.0:1 on white
 
   // -------------------------------------------------------------------------
   // Colour system — orange is an ACCENT, never text
@@ -213,4 +229,201 @@ a {
 .btn-primary {
   border-radius: 8px;
   font-weight: 500;
+}
+
+// ---------------------------------------------------------------------------
+// Ported from the MCP pilot's custom CSS (theme component 5)
+//
+// Rewritten without the pilot's blanket !important. It needed those because
+// it was a component layering over Air; this is the parent theme, so normal
+// specificity wins. The exceptions are marked — Discourse's own components
+// (minimal-category-boxes, clickable-topic) load AFTER the parent theme and
+// genuinely do need overriding.
+// ---------------------------------------------------------------------------
+
+html,
+body {
+  background: var(--rentman-page-bg);
+}
+
+.background-container {
+  background-image: none;
+  background: var(--rentman-page-bg);
+}
+
+// --- Welcome banner --------------------------------------------------------
+
+.welcome-banner {
+  background: linear-gradient(135deg, #ffffff 0%, #faf3ec 100%);
+  border: 1px solid var(--rentman-border);
+  border-radius: var(--rentman-radius-2xl);
+  padding: 24px;
+  margin: 24px 0 32px;
+
+  h1,
+  h2 {
+    font-family: var(--rentman-font-display);
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--rentman-ink);
+    margin: 0 0 12px;
+
+    // The orange full stop
+    &::after {
+      content: ".";
+      color: var(--rentman-orange);
+    }
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--rentman-muted-text);
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+// --- Topic list ------------------------------------------------------------
+
+.topic-list,
+.topic-list-item {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.topic-list .topic-list-item {
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--rentman-border);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.topic-list .main-link a.title {
+  font-family: var(--rentman-font-body);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--rentman-ink);
+  line-height: 1.35;
+
+  &:hover {
+    color: var(--rentman-orange);
+    text-decoration: none;
+  }
+}
+
+// --- Category boxes --------------------------------------------------------
+// !important retained: discourse-minimal-category-boxes is a component and
+// loads after this theme.
+
+.category-box {
+  background: #fff !important;
+  border: 1px solid var(--rentman-border) !important;
+  border-radius: var(--rentman-radius-xl) !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s, transform 0.15s;
+
+  &:hover {
+    border-color: var(--rentman-orange) !important;
+    transform: translateY(-1px);
+  }
+
+  .category-abbreviation {
+    display: none !important;
+  }
+
+  .category-box-inner {
+    display: flex !important;
+    align-items: stretch !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  // The colour bar down the left edge
+  .category-logo {
+    flex: 0 0 12px !important;
+    width: 12px !important;
+    height: auto !important;
+    min-height: 100px;
+    align-self: stretch !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .category-details {
+    flex: 1 !important;
+    padding: 20px 24px !important;
+  }
+
+  .category-box-heading h3 {
+    font-family: var(--rentman-font-body);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--rentman-ink);
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+
+  .description {
+    font-size: 14px;
+    color: var(--rentman-muted-text);
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+// --- Search ----------------------------------------------------------------
+
+.search-menu input[type="text"],
+.search-input,
+input[type="search"] {
+  border-radius: var(--rentman-radius-lg);
+  border: 1.5px solid var(--rentman-border);
+
+  &:focus {
+    border-color: var(--rentman-orange);
+    box-shadow: 0 0 0 3px rgba(255, 94, 29, 0.12);
+  }
+}
+
+// --- Chrome the pilot removes ----------------------------------------------
+// Opinionated IA choices carried over as-is: fewer competing entry points.
+
+.list-controls .category-breadcrumb,
+.list-controls .navigation-controls .category-breadcrumb,
+.list-controls .create-category,
+.navigation-controls .btn.create-category {
+  display: none;
+}
+
+.list-controls .nav.nav-pills {
+  margin-left: 0;
+}
+
+.sidebar-section[data-section-name="categories"] {
+  .sidebar-section-header-caret,
+  button.sidebar-section-header-button,
+  .sidebar-section-link[data-link-name="all-categories"],
+  a[href="/categories"] {
+    display: none;
+  }
+
+  .sidebar-section-header {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.sidebar-section-link-wrapper:has(> a[data-link-name="filter"]),
+.sidebar-section-link-wrapper:has(> a[data-link-name="users"]),
+.sidebar-section-link-wrapper:has(> a[data-link-name="groups"]),
+.sidebar-section-link-wrapper:has(> a[data-link-name="badges"]) {
+  display: none;
 }
