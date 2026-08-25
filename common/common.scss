@@ -252,36 +252,44 @@ body {
 
 // --- Welcome banner --------------------------------------------------------
 
+// Discourse renders the banner as .welcome-banner__title / __subheader inside
+// a .welcome-banner__wrap — NOT as h1/h2 and not with its own padding. The
+// pilot's `.welcome-banner h1` rules never matched anything here, and the
+// pilot's `padding: 24px` stacked on top of __wrap's padding, which is what
+// made this ~330px of mostly empty space.
 .welcome-banner {
   background: linear-gradient(135deg, #ffffff 0%, #faf3ec 100%);
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-2xl);
-  padding: 24px;
   margin: 24px 0 32px;
 
-  h1,
-  h2 {
-    font-family: var(--rentman-font-display);
-    font-weight: 800;
-    font-size: 32px;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--rentman-ink);
-    margin: 0 0 12px;
+  // Own the internal padding through Discourse's variables rather than
+  // adding a second layer of our own.
+  --d-welcome-banner-padding-top: 32px;
+  --d-welcome-banner-padding-bottom: 32px;
+}
 
-    // The orange full stop
-    &::after {
-      content: ".";
-      color: var(--rentman-orange);
-    }
-  }
+.welcome-banner__title {
+  font-family: var(--rentman-font-display);
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--rentman-ink);
+  margin: 0 0 8px;
 
-  p {
-    font-size: 16px;
-    color: var(--rentman-muted-text);
-    line-height: 1.55;
-    margin: 0;
+  // The orange full stop
+  &::after {
+    content: ".";
+    color: var(--rentman-orange);
   }
+}
+
+.welcome-banner__subheader {
+  font-size: 16px;
+  color: var(--rentman-muted-text);
+  line-height: 1.55;
+  margin: 0;
 }
 
 // --- Topic list ------------------------------------------------------------
