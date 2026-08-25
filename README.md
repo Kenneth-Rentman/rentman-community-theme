@@ -56,9 +56,17 @@ should follow is an open decision.
 
 ## Fonts
 
-- **Manrope** — body. Free, loaded from Google Fonts.
-- **Gilroy** — headings on rentman.io. Commercial licence; not loaded. Headings
-  currently fall back to Manrope.
+The approved Rentman web system, matching support.rentman.io:
+
+- **Manrope** 700/800 — headings
+- **Poppins** 400–700 — body, UI, labels
+
+Loaded in a single Google Fonts request identical to the Support Center's, so
+the two sites share a cache entry.
+
+`rentman.io` uses **Gilroy**, which is licensed and unavailable for web use.
+**Poppins is the sanctioned substitute** — this matches brand rather than
+departing from it.
 
 ## Layout
 

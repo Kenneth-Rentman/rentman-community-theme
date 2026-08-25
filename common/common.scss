@@ -27,10 +27,13 @@
   --rentman-yellow: #fcbd01;
   --rentman-purple: #635bf9;
 
-  // Typography — the support.rentman.io system, read off the live page:
-  // Manrope 700/800 for headings, Poppins 400–700 for body and UI.
-  // (rentman.io itself uses Gilroy + Manrope; the Support Center is the
-  // sibling we're matching, so Poppins wins for body.)
+  // Typography — the approved Rentman web system, matching
+  // support.rentman.io: Manrope 700/800 for headings, Poppins 400–700 for
+  // body and UI.
+  //
+  // rentman.io uses Gilroy, which is licensed and not available to us for
+  // web. Poppins is the sanctioned substitute — this is aligned with brand,
+  // not a divergence from it. Don't "fix" it back to Gilroy.
   --rentman-font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
   --rentman-font-heading: "Manrope", -apple-system, BlinkMacSystemFont,
