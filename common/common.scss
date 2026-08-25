@@ -8,7 +8,9 @@
 // Deliberately no layout. Layout comes after we agree the direction.
 // ---------------------------------------------------------------------------
 
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+// Exactly the request support.rentman.io makes, so the two sites share a
+// cache entry and can't drift apart.
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
   // Brand swatches, lifted from rentman.io
@@ -25,11 +27,14 @@
   --rentman-yellow: #fcbd01;
   --rentman-purple: #635bf9;
 
-  // Typography. Gilroy is licensed, so headings fall back to Manrope
-  // until a self-hosted webfont is in place.
-  --rentman-font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  // Typography — the support.rentman.io system, read off the live page:
+  // Manrope 700/800 for headings, Poppins 400–700 for body and UI.
+  // (rentman.io itself uses Gilroy + Manrope; the Support Center is the
+  // sibling we're matching, so Poppins wins for body.)
+  --rentman-font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
-  --rentman-font-heading: var(--rentman-font-body);
+  --rentman-font-heading: "Manrope", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --font-family: var(--rentman-font-body);
   --heading-font-family: var(--rentman-font-heading);
@@ -86,6 +91,9 @@ h6,
 .title,
 .topic-title {
   font-family: var(--rentman-font-heading);
+  // Manrope is only loaded at 700+, matching the Support Center. Without
+  // this, a heading asking for 400/500 gets a faux-bold or falls back.
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
@@ -152,10 +160,13 @@ textarea,
     background: var(--rentman-border);
   }
 
+  // Support Center is Poppins 14px/500 on a 56px bar with a 26px logo.
+  // Ours sits on a taller bar with a 34px logo, so it steps up to 16px/600
+  // to hold the same weight in the lockup.
   .rm-lockup__label {
     font-family: var(--rentman-font-body);
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 1;
     color: var(--rentman-muted);
     white-space: nowrap;
