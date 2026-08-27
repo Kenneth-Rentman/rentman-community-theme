@@ -434,3 +434,33 @@ input[type="search"] {
 .sidebar-section-link-wrapper:has(> a[data-link-name="badges"]) {
   display: none;
 }
+
+// ---------------------------------------------------------------------------
+// Block 2a — full-width by default, sidebar as an overlay drawer
+//
+// Discourse already collapses to full width: #main-outlet-wrapper is
+// `grid-template-columns: 0 minmax(0, 1fr)` until .has-sidebar-page widens
+// the first column. Rather than force the sidebar shut (a per-user
+// preference we can't set from a theme), the column stays at zero and the
+// sidebar floats above the content when opened.
+//
+// Theme-scoped on purpose. The alternative is the `navigation_menu` site
+// setting, which would change navigation for every visitor to the live pilot.
+// ---------------------------------------------------------------------------
+
+@media (min-width: 768px) {
+  #main-outlet-wrapper.has-sidebar-page {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+
+  .has-sidebar-page .sidebar-wrapper {
+    position: fixed;
+    top: var(--main-outlet-offset, 60px);
+    left: 0;
+    width: var(--d-sidebar-width, 17em);
+    z-index: 300;
+    background: #fff;
+    border-right: 1px solid var(--rentman-border);
+    box-shadow: 8px 0 28px rgba(32, 33, 33, 0.08);
+  }
+}
