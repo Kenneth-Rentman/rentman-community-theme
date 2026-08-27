@@ -9,12 +9,9 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
 
-const SHOW_ON = [
-  "discovery.latest",
-  "discovery.top",
-  "discovery.hot",
-  "discovery.categories",
-];
+// Topic lists only. Not discovery.categories — that page IS a category list,
+// so the grid would just say the same thing twice.
+const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 
 const MAX_PER_ROW = 8;
 
