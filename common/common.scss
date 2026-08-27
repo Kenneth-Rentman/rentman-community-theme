@@ -434,3 +434,108 @@ input[type="search"] {
 .sidebar-section-link-wrapper:has(> a[data-link-name="badges"]) {
   display: none;
 }
+
+// ---------------------------------------------------------------------------
+// Block 2b — category grid
+//
+// Eight-up on desktop, matching the IA's eight flat categories. Falls back to
+// four then two, so it stays honest at whatever number actually exists rather
+// than stretching a handful of cards across the full width.
+// ---------------------------------------------------------------------------
+
+.rm-cats {
+  margin: 0 0 28px;
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  &__title {
+    font-family: var(--rentman-font-body);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--rentman-muted);
+    margin: 0;
+
+    // The orange full stop, as on the banner
+    &::after {
+      content: ".";
+      color: var(--rentman-orange);
+    }
+  }
+
+  &__all {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--rentman-ink);
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--rentman-orange);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+.rm-cat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  min-width: 0;
+  padding: 13px 12px;
+  background: #fff;
+  border: 1px solid var(--rentman-border);
+  border-radius: var(--rentman-radius-xl);
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    border-color: var(--rentman-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(32, 33, 33, 0.07);
+    text-decoration: none;
+  }
+
+  &__swatch {
+    width: 26px;
+    height: 26px;
+    border-radius: var(--rentman-radius);
+    flex: 0 0 auto;
+  }
+
+  &__name {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--rentman-ink);
+  }
+
+  &__count {
+    font-size: 11px;
+    color: var(--rentman-muted-text);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (max-width: 1100px) {
+  .rm-cats__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .rm-cats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
