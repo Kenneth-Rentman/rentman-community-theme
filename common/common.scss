@@ -470,14 +470,6 @@ input[type="search"] {
 .rm-cats {
   margin: 0 0 28px;
 
-  &__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 14px;
-  }
-
   &__title {
     font-family: var(--rentman-font-body);
     font-size: 13px;
@@ -485,22 +477,11 @@ input[type="search"] {
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--rentman-muted);
-    margin: 0;
+    margin: 0 0 14px;
 
     // The orange full stop, as on the banner
     &::after {
       content: ".";
-      color: var(--rentman-orange);
-    }
-  }
-
-  &__all {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--rentman-ink);
-    white-space: nowrap;
-
-    &:hover {
       color: var(--rentman-orange);
     }
   }

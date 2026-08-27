@@ -70,10 +70,7 @@ export default class RentmanCategoryGrid extends Component {
   <template>
     {{#if this.show}}
       <section class="rm-cats">
-        <div class="rm-cats__head">
-          <h2 class="rm-cats__title">Browse categories</h2>
-          <a class="rm-cats__all" href="/categories">All categories</a>
-        </div>
+        <h2 class="rm-cats__title">Browse categories</h2>
 
         <div class="rm-cats__grid" data-columns={{this.columns}}>
           {{#each this.categories as |c|}}
