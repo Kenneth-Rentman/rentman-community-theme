@@ -516,11 +516,22 @@ input[type="search"] {
     text-decoration: none;
   }
 
-  &__swatch {
-    width: 26px;
-    height: 26px;
+  // Tinted tile carrying the category's own icon. Background and icon colour
+  // are set inline from the category's colour by the component.
+  &__tile {
+    width: 30px;
+    height: 30px;
     border-radius: var(--rentman-radius);
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .d-icon {
+      width: 15px;
+      height: 15px;
+      color: inherit;
+    }
   }
 
   &__name {
