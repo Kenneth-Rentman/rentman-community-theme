@@ -277,13 +277,15 @@ body {
   letter-spacing: -0.02em;
   color: var(--rentman-ink);
   margin: 0 0 8px;
-
-  // The orange full stop
-  &::after {
-    content: ".";
-    color: var(--rentman-orange);
-  }
 }
+
+// No orange full stop on the banner headline. Discourse nests
+// .welcome-banner__subheader INSIDE .welcome-banner__title, so an ::after on
+// the title lands below the subtitle rather than after the headline — and the
+// headline itself is a bare text node with a block sibling, which CSS can't
+// attach to. The motif still runs on section headings, where the element is a
+// plain heading.
+
 
 .welcome-banner__subheader {
   font-size: 16px;
