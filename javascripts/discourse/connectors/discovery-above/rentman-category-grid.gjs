@@ -16,20 +16,46 @@ const SHOW_ON = [
   "discovery.categories",
 ];
 
+const MAX_PER_ROW = 8;
+
 export default class RentmanCategoryGrid extends Component {
   @service site;
   @service router;
 
   get show() {
-    return SHOW_ON.includes(this.router.currentRouteName);
+    return SHOW_ON.includes(this.router.currentRouteName) &&
+      this.categories.length > 0;
   }
 
   get categories() {
     const uncategorized = this.site.uncategorized_category_id;
 
     return (this.site.categories ?? [])
-      .filter((c) => !c.parent_category_id && c.id !== uncategorized)
-      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
+      .filter(
+        (c) =>
+          !c.parent_category_id &&
+          c.id !== uncategorized &&
+          // Staff-only rooms shouldn't sit in a public browse grid, even for
+          // the staff who can see them — the sidebar already lists those.
+          !c.read_restricted
+      )
+      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+      .map((c) => ({
+        id: c.id,
+        slug: c.slug,
+        name: c.name,
+        color: c.color,
+        countLabel: `${c.topic_count} ${
+          c.topic_count === 1 ? "topic" : "topics"
+        }`,
+      }));
+  }
+
+  // Drives the column count so the cards always fill the row at equal width,
+  // whatever number of categories exists. A fixed 8 leaves a ragged gap at
+  // any smaller count.
+  get columns() {
+    return Math.min(this.categories.length, MAX_PER_ROW);
   }
 
   <template>
@@ -40,7 +66,7 @@ export default class RentmanCategoryGrid extends Component {
           <a class="rm-cats__all" href="/categories">All categories</a>
         </div>
 
-        <div class="rm-cats__grid">
+        <div class="rm-cats__grid" data-columns={{this.columns}}>
           {{#each this.categories as |c|}}
             <a class="rm-cat" href="/c/{{c.slug}}/{{c.id}}">
               <span
@@ -49,7 +75,7 @@ export default class RentmanCategoryGrid extends Component {
                 aria-hidden="true"
               ></span>
               <span class="rm-cat__name">{{c.name}}</span>
-              <span class="rm-cat__count">{{c.topic_count}} topics</span>
+              <span class="rm-cat__count">{{c.countLabel}}</span>
             </a>
           {{/each}}
         </div>

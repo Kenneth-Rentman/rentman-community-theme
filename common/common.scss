@@ -481,10 +481,19 @@ input[type="search"] {
     }
   }
 
+  // Column count comes from the component's data-columns, so the cards fill
+  // the row at equal width whatever number of categories exists. A fixed 8
+  // left a ragged two-thirds row at any smaller count.
   &__grid {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: 10px;
+
+    @for $i from 1 through 8 {
+      &[data-columns="#{$i}"] {
+        grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+      }
+    }
   }
 }
 
@@ -529,13 +538,13 @@ input[type="search"] {
 }
 
 @media (max-width: 1100px) {
-  .rm-cats__grid {
+  .rm-cats__grid[data-columns] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
-  .rm-cats__grid {
+  .rm-cats__grid[data-columns] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
