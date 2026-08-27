@@ -15,13 +15,8 @@ import dIcon from "discourse/helpers/d-icon";
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 const MAX_PER_ROW = 8;
 
-// "FF5E1D" -> "255, 94, 29", or null if it isn't a plain six-digit hex.
-function toRgb(hex) {
-  if (!hex || !/^[0-9a-f]{6}$/i.test(hex)) {
-    return null;
-  }
-  const n = parseInt(hex, 16);
-  return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+function isHex(color) {
+  return !!color && /^[0-9a-f]{6}$/i.test(color);
 }
 
 export default class RentmanCategoryGrid extends Component {
@@ -48,26 +43,22 @@ export default class RentmanCategoryGrid extends Component {
           !c.read_restricted
       )
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
-      .map((c) => {
-        const rgb = toRgb(c.color);
-
-        return {
-          id: c.id,
-          slug: c.slug,
-          name: c.name,
-          icon: c.style_type === "icon" ? c.icon : null,
-          countLabel: `${c.topic_count} ${
-            c.topic_count === 1 ? "topic" : "topics"
-          }`,
-          // Tinted tile in the category's own colour, with the icon at full
-          // strength on top.
-          tileStyle: htmlSafe(
-            rgb
-              ? `background: rgba(${rgb}, 0.14); color: #${c.color};`
-              : `background: var(--rentman-beige); color: var(--rentman-ink);`
-          ),
-        };
-      });
+      .map((c) => ({
+        id: c.id,
+        slug: c.slug,
+        name: c.name,
+        icon: c.style_type === "icon" ? c.icon : null,
+        countLabel: `${c.topic_count} ${
+          c.topic_count === 1 ? "topic" : "topics"
+        }`,
+        // Only the icon carries the category's colour. The tile stays a
+        // neutral grey — tinting it in the category colour turned every card
+        // into a peach square and, with all categories currently the same
+        // orange, told the reader nothing.
+        iconStyle: isHex(c.color)
+          ? htmlSafe(`color: #${c.color};`)
+          : null,
+      }));
   }
 
   // Drives the column count so cards always fill the row at equal width,
@@ -87,7 +78,7 @@ export default class RentmanCategoryGrid extends Component {
         <div class="rm-cats__grid" data-columns={{this.columns}}>
           {{#each this.categories as |c|}}
             <a class="rm-cat" href="/c/{{c.slug}}/{{c.id}}">
-              <span class="rm-cat__tile" style={{c.tileStyle}} aria-hidden="true">
+              <span class="rm-cat__tile" style={{c.iconStyle}} aria-hidden="true">
                 {{#if c.icon}}{{dIcon c.icon}}{{/if}}
               </span>
               <span class="rm-cat__name">{{c.name}}</span>

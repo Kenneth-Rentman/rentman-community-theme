@@ -58,12 +58,26 @@
   --rentman-radius-lg: 8px;
   --rentman-radius-xl: 12px; // cards
   --rentman-radius-2xl: 16px; // banner
-  --rentman-page-bg: #faf7f2; // warm ground, not white
   // ===========================================================================
 
-  --rentman-border: #eee9e1; // pilot's warm hairline
-  --rentman-muted: #6b7280; // 4.83:1 on white
-  --rentman-muted-text: #5a5a5a; // pilot's description grey, 7.0:1 on white
+  // ---------------------------------------------------------------------------
+  // Surfaces — measured off rentman.io, not inferred from a swatch list.
+  //
+  // The page there is WHITE. #eee9e1 is a band colour for alternating
+  // sections, not a ground; using it as a page wash is what made this look
+  // washed out and peachy. Crispness comes from definite borders — rentman.io
+  // uses ink outlines 28x and #d9d4cd 21x, not a single faint hairline.
+  // ---------------------------------------------------------------------------
+  --rentman-page-bg: #ffffff;
+  --rentman-band: #eee9e1; // deliberate panels/bands, never the ground
+  --rentman-border: #d9d4cd; // definite edges: cards, banner, header
+  --rentman-hairline: #eee9e1; // quiet separators: list rows
+  --rentman-tile: #f4f4f4; // neutral grey tile, rentman.io's own
+
+  // Muted text is ink at 65%, not a cool grey — it stays in the same family
+  // as the body colour instead of introducing a second temperature. ~5.2:1.
+  --rentman-muted: rgba(32, 33, 33, 0.65);
+  --rentman-muted-text: rgba(32, 33, 33, 0.65);
 
   // -------------------------------------------------------------------------
   // Colour system — orange is an ACCENT, never text
@@ -258,7 +272,8 @@ body {
 // pilot's `padding: 24px` stacked on top of __wrap's padding, which is what
 // made this ~330px of mostly empty space.
 .welcome-banner {
-  background: linear-gradient(135deg, #ffffff 0%, #faf3ec 100%);
+  // Was a gradient to #faf3ec — the main source of the peach cast.
+  background: #fff;
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-2xl);
   margin: 24px 0 32px;
@@ -305,7 +320,7 @@ body {
 
 .topic-list .topic-list-item {
   padding: 18px 4px;
-  border-bottom: 1px solid var(--rentman-border);
+  border-bottom: 1px solid var(--rentman-hairline);
 
   &:last-child {
     border-bottom: 0;
@@ -528,6 +543,8 @@ input[type="search"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    // Neutral grey tile; only the icon carries the category colour.
+    background: var(--rentman-tile);
 
     .d-icon {
       width: 15px;
