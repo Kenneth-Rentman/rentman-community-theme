@@ -450,18 +450,14 @@ input[type="search"] {
 // Scoped to body.navigation-topics — the main topic list, where the category
 // dropdown duplicates the card grid above it. On a category page it is the
 // only wayfinding there is, so it stays.
+//
+// Note: "New Topic" is deliberately NOT hidden here, even though it repeats
+// the hero's "Ask a question". Tried it, and the controls row looked
+// unbalanced without it. For a community that needs contributions more than
+// it needs tidiness, the compose action is worth repeating — don't "fix" it.
 body.navigation-topics {
   .list-controls .category-breadcrumb,
   .list-controls .navigation-controls .category-breadcrumb {
-    display: none;
-  }
-
-  // "New Topic" duplicates the hero's "Ask a question" — same action, same
-  // black button, a few hundred pixels apart. The hero one is better labelled
-  // and more prominent, so this hides Discourse's on the home list only.
-  // Every other list (categories, tags, search) keeps it, since none of them
-  // render the hero.
-  #create-topic {
     display: none;
   }
 }
