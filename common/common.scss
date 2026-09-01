@@ -575,3 +575,89 @@ input[type="search"] {
   background: #fff;
   border-color: var(--rentman-border);
 }
+
+// ---------------------------------------------------------------------------
+// Discovery right rail — leaderboard
+//
+// Restyles discourse-gamification's `minimal-gamification-leaderboard`, which
+// the Right Sidebar Blocks component renders. We style its markup rather than
+// replacing it, so gamification keeps owning the data and the scoring.
+//
+// Its own stylesheet loads before the theme's, so matching specificity wins
+// on order. Classes are from the plugin: .leaderboard.-minimal, .page__title,
+// .ranking-col-names, .user / .user-highlight / .user__rank / __name / __score
+// ---------------------------------------------------------------------------
+
+.leaderboard.-minimal {
+  background: #fff;
+  border: 1px solid var(--rentman-border);
+  border-radius: var(--rentman-radius-xl);
+  padding: 16px 18px;
+
+  // Match the BROWSE CATEGORIES. label so the rail and the grid read as one
+  // system. The text itself is the leaderboard's name, set in admin.
+  .page__title {
+    font-family: var(--rentman-font-body);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--rentman-muted);
+    margin: 0;
+
+    &::after {
+      content: ".";
+      color: var(--rentman-orange);
+    }
+  }
+
+  .ranking-col-names {
+    padding: 12px 0 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--rentman-muted);
+  }
+
+  .user {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rentman-hairline);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    // The plugin highlights the current user with var(--tertiary-50) — a
+    // derived tint of the brand orange, i.e. the peach we removed everywhere
+    // else. Beige band instead, with a rule to anchor it.
+    &-highlight {
+      background-color: var(--rentman-band);
+      color: var(--rentman-ink);
+      border-radius: var(--rentman-radius);
+      padding-inline: 8px;
+      margin-inline: -8px;
+    }
+
+    &__rank {
+      font-family: var(--rentman-font-display);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--rentman-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    &__name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--rentman-ink);
+    }
+
+    &__score {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--rentman-ink);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
