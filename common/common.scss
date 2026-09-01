@@ -764,37 +764,13 @@ body.navigation-topics {
 // treatment matches the homepage cards so the two views read as one system.
 
 .rm-cat-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
   margin: 0 0 16px;
-
-  &__tile {
-    flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
-    border-radius: var(--rentman-radius);
-    background: var(--rentman-tile);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .d-icon {
-      width: 15px;
-      height: 15px;
-      color: inherit;
-    }
-  }
 
   &__title-row {
     display: flex;
     align-items: baseline;
     gap: 10px;
     flex-wrap: wrap;
-  }
-
-  &__text {
-    min-width: 0;
   }
 
   &__name {
@@ -807,18 +783,18 @@ body.navigation-topics {
     margin: 0;
   }
 
+  &__count {
+    font-size: 13px;
+    color: var(--rentman-muted-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
   &__desc {
     font-size: 14px;
     line-height: 1.45;
     color: var(--rentman-muted-text);
     margin: 3px 0 0;
     max-width: 68ch;
-  }
-
-  &__count {
-    font-size: 13px;
-    color: var(--rentman-muted-text);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
 }
