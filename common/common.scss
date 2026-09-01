@@ -46,7 +46,7 @@
   // ---------------------------------------------------------------------------
   // Type scale — four sizes, three weights. Anything outside this is a bug.
   //
-  //   24 / 700   page titles           category header
+  //   22 / 700   page titles           category header
   //   17 / 600   topic titles          primary content
   //   15 / 600   section labels        "Browse categories." / "Leaderboard."
   //   15 / 400   list headers, body
@@ -790,11 +790,15 @@ body.navigation-topics {
     white-space: nowrap;
   }
 
+  // 100ch, not 68. A page subtitle is scanned rather than read, so it can run
+  // longer than the 45–75ch measure body copy wants — and the extra width
+  // uses space that was sitting empty to the right. Still capped: uncapped,
+  // this would stretch to ~200ch on a wide screen.
   &__desc {
     font-size: 14px;
     line-height: 1.45;
     color: var(--rentman-muted-text);
     margin: 3px 0 0;
-    max-width: 68ch;
+    max-width: 100ch;
   }
 }
