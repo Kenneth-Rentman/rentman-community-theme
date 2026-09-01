@@ -621,12 +621,19 @@ input[type="search"] {
     color: var(--rentman-muted);
   }
 
+  // No row separators. The topic list beside this has its own, and two sets
+  // of horizontal rules at different row heights makes the eye try to align
+  // columns that can't align. Dropping these leaves one rhythm on the page —
+  // the same reason HubSpot's rail works next to their list.
   .user {
-    padding: 9px 0;
-    border-bottom: 1px solid var(--rentman-hairline);
+    padding: 10px 0;
+    border-bottom: 0;
 
-    &:last-child {
-      border-bottom: 0;
+    // Slightly larger avatars, so the rail reads as its own rhythm rather
+    // than a failed match for the list.
+    &__avatar img {
+      width: 28px;
+      height: 28px;
     }
 
     // The plugin highlights the current user with var(--tertiary-50) — a
