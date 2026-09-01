@@ -6,9 +6,6 @@
     "https://github.com/discourse/discourse-minimal-category-boxes.git",
     "https://github.com/discourse/discourse-clickable-topic.git"
   ],
-  "modifiers": {
-    "serialize_topic_excerpts": true
-  },
   "color_schemes": {
     "Rentman Light": {
       "primary": "202121",
