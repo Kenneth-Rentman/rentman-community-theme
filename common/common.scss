@@ -185,7 +185,13 @@ textarea,
   // A max-height here can only ever SHRINK it — setting 26px to match the
   // Support Center actually made the logo smaller than stock. Set the
   // variable instead.
-  --d-logo-height: 34px;
+  //
+  // Desktop only. Discourse steps this value down at narrow widths (2.3em /
+  // 2.4em / 2.667em across breakpoints); a flat 34px overrode all of them and
+  // ran the wordmark under the Log In button on a 375px screen.
+  @media (min-width: 768px) {
+    --d-logo-height: 34px;
+  }
 
   // Keeps the logo vertically centred in the bar.
   .home-logo-wrapper-outlet,
