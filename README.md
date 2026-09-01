@@ -71,6 +71,35 @@ departing from it.
 Manrope is reserved for **display** — the hero/banner only. Section headings
 (`h1`–`h6`) are Poppins 700.
 
+## Companion components
+
+Installed separately in admin, not listed in `about.json` (they're already
+installed on mcp-beta and a git-URL entry would create duplicates):
+
+| component | why |
+| --- | --- |
+| [Right Sidebar Blocks](https://github.com/discourse/discourse-right-sidebar-blocks) | Provides the discovery right rail. Its `blocks` setting takes `{name, params}` entries; `show_in_routes` limits which list routes it appears on. |
+
+Current `blocks` config:
+
+```json
+[
+  {
+    "name": "minimal-gamification-leaderboard",
+    "params": [
+      { "name": "id", "value": "1" },
+      { "name": "count", "value": "5" }
+    ]
+  }
+]
+```
+
+`minimal-gamification-leaderboard` ships with **discourse-gamification** — it
+is not something this theme provides. It carries its own styles
+(`leaderboard-minimal.scss`) and renders `.leaderboard.-minimal` with
+`.user__rank` / `.user__name` / `.user__score` rows, which is what to target
+if it needs restyling to match.
+
 ## Geometry
 
 The MCP pilot's scale, chosen over the Support Center's flat 4px after a
