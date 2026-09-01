@@ -291,28 +291,31 @@ body {
 // pilot's `padding: 24px` stacked on top of __wrap's padding, which is what
 // made this ~330px of mostly empty space.
 .welcome-banner {
-  // The hero band. rentman.io uses #eee9e1 as the backdrop panel behind its
-  // header visuals; this is the same job. A white card on a white page had
-  // nothing to hold it down. No border — the fill is the edge.
-  background: var(--rentman-band);
+  // Dark hero, ported from support.rentman.io's .rm-hero (#202121, 56/52
+  // padding). Same job as the beige band it replaces — anchoring the top of
+  // the page — but it carries far more weight and gives the CTA somewhere to
+  // sit. No border; the fill is the edge.
+  background: var(--rentman-ink);
   border: 0;
   border-radius: var(--rentman-radius-2xl);
   margin: 24px 0 32px;
 
   // Own the internal padding through Discourse's variables rather than
   // adding a second layer of our own.
-  --d-welcome-banner-padding-top: 32px;
-  --d-welcome-banner-padding-bottom: 32px;
+  --d-welcome-banner-padding-top: 56px;
+  --d-welcome-banner-padding-bottom: 52px;
 }
 
+// Support Center's hero heading: Manrope 900, fluid. That's the weight the
+// font request already loads 900 for.
 .welcome-banner__title {
   font-family: var(--rentman-font-display);
-  font-weight: 800;
-  font-size: 32px;
-  line-height: 1.15;
+  font-weight: 900;
+  font-size: clamp(32px, 4.5vw, 56px);
+  line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--rentman-ink);
-  margin: 0 0 8px;
+  color: #fff;
+  margin: 0 0 10px;
 }
 
 // No orange full stop on the banner headline. Discourse nests
@@ -325,7 +328,7 @@ body {
 
 .welcome-banner__subheader {
   font-size: 16px;
-  color: var(--rentman-muted-text);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.55;
   margin: 0;
 }
@@ -679,6 +682,54 @@ input[type="search"] {
       font-weight: 600;
       color: var(--rentman-ink);
       font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+// --- Hero CTAs (welcome-banner-below-headline connector) -------------------
+
+.rm-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 22px;
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  // Orange surface with INK text: 5.28:1. White on orange would be 3.06:1 —
+  // which is what HubSpot's own hero button does, and it fails AA.
+  &__primary {
+    background: var(--rentman-orange);
+    color: var(--rentman-ink);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 20px;
+    border-radius: var(--rentman-radius);
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--rentman-orange-soft);
+      color: var(--rentman-ink);
+    }
+  }
+
+  // Outlined pill, as on the Support Center hero. White on #202121 is 15.9:1.
+  &__secondary {
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--rentman-radius);
+    padding: 9.5px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #fff;
+      color: #fff;
     }
   }
 }

@@ -6,3 +6,7 @@ en:
       use_gilroy_headings: "Use Gilroy for headings. Requires a self-hosted webfont licence — set the stylesheet URL below."
       gilroy_stylesheet_url: "URL of a stylesheet that declares the Gilroy @font-face rules."
       base_border_radius: "Corner radius in pixels for buttons, inputs and cards."
+      hero_primary_cta_label: "Primary hero button label. Leave empty to hide both hero buttons."
+      hero_primary_cta_url: "Where the primary hero button goes. /new-topic opens the composer."
+      hero_secondary_cta_label: "Secondary hero button label. Leave empty to show only the primary."
+      hero_secondary_cta_url: "Where the secondary hero button goes."
