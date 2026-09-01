@@ -588,11 +588,12 @@ input[type="search"] {
 // .ranking-col-names, .user / .user-highlight / .user__rank / __name / __score
 // ---------------------------------------------------------------------------
 
+// No card container: at ten rows a bordered box competes with the topic list
+// beside it. The rail reads better as a plain column.
 .leaderboard.-minimal {
-  background: #fff;
-  border: 1px solid var(--rentman-border);
-  border-radius: var(--rentman-radius-xl);
-  padding: 16px 18px;
+  background: transparent;
+  border: 0;
+  padding: 0;
 
   // Match the BROWSE CATEGORIES. label so the rail and the grid read as one
   // system. The text itself is the leaderboard's name, set in admin.
@@ -639,23 +640,25 @@ input[type="search"] {
       margin-inline: -8px;
     }
 
+    // Weights kept below the topic list's 600 titles — this is a reference
+    // column, not the main content, and Manrope 800 ranks shouted over it.
     &__rank {
-      font-family: var(--rentman-font-display);
+      font-family: var(--rentman-font-body);
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 500;
       color: var(--rentman-muted);
       font-variant-numeric: tabular-nums;
     }
 
     &__name {
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--rentman-ink);
     }
 
     &__score {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--rentman-ink);
       font-variant-numeric: tabular-nums;
     }
