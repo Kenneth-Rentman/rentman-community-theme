@@ -309,15 +309,14 @@ body {
   // spanned the full content column. support.rentman.io's .rm-hero has no
   // radius either; a hero is the one place the 8/12/16 scale doesn't apply.
   border-radius: 0;
-  // 48px, not 24. Losing the band also lost the hero's bottom edge; space is
-  // what replaces it. A rule here would be a third horizontal line in a
-  // region that already has the list header and the rail header.
-  margin: 0 0 48px;
+  // Tight. With the subtitle gone this is a title and two buttons, so the
+  // generous padding that suited a filled band now just reads as a gap.
+  margin: 0 0 28px;
 
   // Own the internal padding through Discourse's variables rather than
   // adding a second layer of our own.
-  --d-welcome-banner-padding-top: 40px;
-  --d-welcome-banner-padding-bottom: 8px;
+  --d-welcome-banner-padding-top: 20px;
+  --d-welcome-banner-padding-bottom: 0;
   --d-welcome-banner-padding-left: 0;
   --d-welcome-banner-padding-right: 0;
 
@@ -521,23 +520,6 @@ input[type="search"] {
 
 .rm-cats {
   margin: 0 0 28px;
-
-  // Sentence case. rentman.io uses uppercase for exactly two things — a "New"
-  // badge and language codes — never for section labels. The uppercase
-  // letter-spaced treatment came from the mockup, not the brand.
-  &__title {
-    font-family: var(--rentman-font-body);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--rentman-ink);
-    margin: 0 0 14px;
-
-    // The orange full stop, as on the banner
-    &::after {
-      content: ".";
-      color: var(--rentman-orange);
-    }
-  }
 
   // Column count comes from the component's data-columns, so the cards fill
   // the row at equal width whatever number of categories exists. A fixed 8

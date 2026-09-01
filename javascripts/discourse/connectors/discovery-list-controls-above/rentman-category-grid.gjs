@@ -74,9 +74,8 @@ export default class RentmanCategoryGrid extends Component {
 
   <template>
     {{#if this.show}}
+      {{! No heading — four labelled cards don't need a label above them. }}
       <section class="rm-cats">
-        <h2 class="rm-cats__title">Browse categories</h2>
-
         <div class="rm-cats__grid" data-columns={{this.columns}}>
           {{#each this.categories as |c|}}
             <a class="rm-cat" href="/c/{{c.slug}}/{{c.id}}">
