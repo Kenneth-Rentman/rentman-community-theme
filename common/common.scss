@@ -106,6 +106,13 @@
   // have. Don't reintroduce it.
   // -------------------------------------------------------------------------
 
+  // Discourse colours links with
+  //   a, a:visited, a:hover, a:active { color: var(--d-link-color) }
+  // and a:visited is (0,1,1) — higher than any single class. So a plain
+  // `.my-thing { color: … }` on an <a> silently loses once the link has been
+  // visited. Set the token instead of fighting specificity per component.
+  --d-link-color: var(--rentman-ink);
+
   // Interactive text is ink; orange arrives on hover
   --d-button-default-text-color: var(--rentman-ink);
   --d-button-flat-text-color: var(--rentman-ink);
@@ -291,10 +298,10 @@ body {
 // pilot's `padding: 24px` stacked on top of __wrap's padding, which is what
 // made this ~330px of mostly empty space.
 .welcome-banner {
-  // Beige band, as rentman.io uses behind its header visuals. The dark
-  // #202121 version (ported from support.rentman.io's .rm-hero) was tried and
-  // reverted — too heavy against a white page. No border; the fill is the edge.
-  background: var(--rentman-band);
+  // No band at all — just headline, subheader and CTAs on the page. Both the
+  // dark #202121 and the beige versions were tried; each read as a heavy
+  // block of chrome above the content it was meant to introduce.
+  background: transparent;
   border: 0;
 
   // Square, and butted against the header. The radius plus the gap above was
@@ -302,14 +309,14 @@ body {
   // spanned the full content column. support.rentman.io's .rm-hero has no
   // radius either; a hero is the one place the 8/12/16 scale doesn't apply.
   border-radius: 0;
-  margin: 0 0 32px;
+  margin: 0 0 24px;
 
   // Own the internal padding through Discourse's variables rather than
   // adding a second layer of our own.
-  --d-welcome-banner-padding-top: 56px;
-  --d-welcome-banner-padding-bottom: 52px;
-  --d-welcome-banner-padding-left: 48px;
-  --d-welcome-banner-padding-right: 48px;
+  --d-welcome-banner-padding-top: 40px;
+  --d-welcome-banner-padding-bottom: 8px;
+  --d-welcome-banner-padding-left: 0;
+  --d-welcome-banner-padding-right: 0;
 
   // Discourse centres banner text by default; everything else on the page is
   // left-aligned, and so is the Support Center hero.
@@ -332,7 +339,7 @@ body {
 .welcome-banner__title {
   font-family: var(--rentman-font-display);
   font-weight: 900;
-  font-size: clamp(32px, 4.5vw, 56px);
+  font-size: clamp(28px, 3.4vw, 42px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--rentman-ink);
@@ -739,7 +746,9 @@ input[type="search"] {
   // Ink surface, white text — 15.9:1. Same primary treatment as New Topic and
   // the Support Center's "Submit a request", rather than a second primary
   // style just for the hero.
-  &__primary {
+  // :visited included so this beats Discourse's a:visited at (0,1,1).
+  &__primary,
+  &__primary:visited {
     background: var(--rentman-ink);
     color: #fff;
     font-size: 15px;
@@ -755,7 +764,8 @@ input[type="search"] {
   }
 
   // Outlined, ink on the band — 12.7:1.
-  &__secondary {
+  &__secondary,
+  &__secondary:visited {
     color: var(--rentman-ink);
     border: 1.5px solid rgba(32, 33, 33, 0.3);
     border-radius: var(--rentman-radius);
