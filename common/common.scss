@@ -766,13 +766,13 @@ body.navigation-topics {
 .rm-cat-header {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  margin: 0 0 24px;
+  gap: 12px;
+  margin: 0 0 16px;
 
   &__tile {
     flex: 0 0 auto;
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: var(--rentman-radius);
     background: var(--rentman-tile);
     display: flex;
@@ -780,10 +780,17 @@ body.navigation-topics {
     justify-content: center;
 
     .d-icon {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
       color: inherit;
     }
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   &__text {
@@ -792,26 +799,26 @@ body.navigation-topics {
 
   &__name {
     font-family: var(--rentman-font-body);
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
     letter-spacing: -0.01em;
     color: var(--rentman-ink);
-    margin: 0 0 4px;
+    margin: 0;
   }
 
   &__desc {
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.45;
     color: var(--rentman-muted-text);
-    margin: 0;
-    max-width: 72ch;
+    margin: 3px 0 0;
+    max-width: 68ch;
   }
 
   &__count {
     font-size: 13px;
     color: var(--rentman-muted-text);
     font-variant-numeric: tabular-nums;
-    margin: 8px 0 0;
+    white-space: nowrap;
   }
 }

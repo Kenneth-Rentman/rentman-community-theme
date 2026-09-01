@@ -55,13 +55,16 @@ export default class RentmanCategoryHeader extends Component {
         </span>
 
         <div class="rm-cat-header__text">
-          <h1 class="rm-cat-header__name">{{this.category.name}}</h1>
+          {{! Name and count share a line — the count is metadata, not a
+              paragraph, and on its own row it read as orphaned. }}
+          <div class="rm-cat-header__title-row">
+            <h1 class="rm-cat-header__name">{{this.category.name}}</h1>
+            <span class="rm-cat-header__count">{{this.countLabel}}</span>
+          </div>
 
           {{#if this.description}}
             <p class="rm-cat-header__desc">{{this.description}}</p>
           {{/if}}
-
-          <p class="rm-cat-header__count">{{this.countLabel}}</p>
         </div>
       </header>
     {{/if}}
