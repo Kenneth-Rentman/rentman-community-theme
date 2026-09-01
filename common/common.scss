@@ -470,13 +470,14 @@ input[type="search"] {
 .rm-cats {
   margin: 0 0 28px;
 
+  // Sentence case. rentman.io uses uppercase for exactly two things — a "New"
+  // badge and language codes — never for section labels. The uppercase
+  // letter-spaced treatment came from the mockup, not the brand.
   &__title {
     font-family: var(--rentman-font-body);
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--rentman-muted);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rentman-ink);
     margin: 0 0 14px;
 
     // The orange full stop, as on the banner
@@ -599,11 +600,9 @@ input[type="search"] {
   // system. The text itself is the leaderboard's name, set in admin.
   .page__title {
     font-family: var(--rentman-font-body);
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--rentman-muted);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rentman-ink);
     margin: 0;
 
     &::after {
@@ -614,10 +613,8 @@ input[type="search"] {
 
   .ranking-col-names {
     padding: 12px 0 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    font-size: 13px;
+    font-weight: 400;
     color: var(--rentman-muted);
   }
 
