@@ -454,6 +454,15 @@ body.navigation-topics {
   .list-controls .navigation-controls .category-breadcrumb {
     display: none;
   }
+
+  // "New Topic" duplicates the hero's "Ask a question" — same action, same
+  // black button, a few hundred pixels apart. The hero one is better labelled
+  // and more prominent, so this hides Discourse's on the home list only.
+  // Every other list (categories, tags, search) keeps it, since none of them
+  // render the hero.
+  #create-topic {
+    display: none;
+  }
 }
 
 .list-controls .create-category,
