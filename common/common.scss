@@ -297,13 +297,24 @@ body {
   // sit. No border; the fill is the edge.
   background: var(--rentman-ink);
   border: 0;
-  border-radius: var(--rentman-radius-2xl);
-  margin: 24px 0 32px;
+
+  // Square, and butted against the header. The radius plus the gap above was
+  // what made this read as a banner ad rather than a section — it already
+  // spanned the full content column. support.rentman.io's .rm-hero has no
+  // radius either; a hero is the one place the 8/12/16 scale doesn't apply.
+  border-radius: 0;
+  margin: 0 0 32px;
 
   // Own the internal padding through Discourse's variables rather than
   // adding a second layer of our own.
   --d-welcome-banner-padding-top: 56px;
   --d-welcome-banner-padding-bottom: 52px;
+  --d-welcome-banner-padding-left: 48px;
+  --d-welcome-banner-padding-right: 48px;
+
+  // Discourse centres banner text by default; everything else on the page is
+  // left-aligned, and so is the Support Center hero.
+  --d-welcome-banner-text-alignment: left;
 }
 
 // Support Center's hero heading: Manrope 900, fluid. That's the weight the
@@ -331,6 +342,8 @@ body {
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.55;
   margin: 0;
+  // Left-aligned text needs a measure; the full column is far too wide.
+  max-width: 58ch;
 }
 
 // --- Topic list ------------------------------------------------------------
@@ -704,8 +717,8 @@ input[type="search"] {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: center;
-  margin-top: 22px;
+  justify-content: flex-start;
+  margin-top: 24px;
 
   a:hover {
     text-decoration: none;
