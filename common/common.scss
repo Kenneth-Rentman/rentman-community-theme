@@ -314,7 +314,18 @@ body {
 
   // Discourse centres banner text by default; everything else on the page is
   // left-aligned, and so is the Support Center hero.
+  //
+  // TWO variables, because this site runs the `uc-modernize-foundation-theme`
+  // upcoming change, and under that flag the title reads a differently-named
+  // token:
+  //
+  //   .welcome-banner__title            -> --d-welcome-banner-text-alignment
+  //   :where(.uc-modernize-…) .welcome-banner__title
+  //                                     -> --welcome-banner-text-align
+  //
+  // Setting only the documented one silently does nothing here.
   --d-welcome-banner-text-alignment: left;
+  --welcome-banner-text-align: left;
 }
 
 // Support Center's hero heading: Manrope 900, fluid. That's the weight the
@@ -327,6 +338,8 @@ body {
   letter-spacing: -0.02em;
   color: #fff;
   margin: 0 0 10px;
+  // Explicit, so this doesn't depend on which token name upstream is using.
+  text-align: left;
 }
 
 // No orange full stop on the banner headline. Discourse nests
