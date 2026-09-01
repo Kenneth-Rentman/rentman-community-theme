@@ -46,6 +46,7 @@
   // ---------------------------------------------------------------------------
   // Type scale — four sizes, three weights. Anything outside this is a bug.
   //
+  //   24 / 700   page titles           category header
   //   17 / 600   topic titles          primary content
   //   15 / 600   section labels        "Browse categories." / "Leaderboard."
   //   15 / 400   list headers, body
@@ -754,5 +755,63 @@ body.navigation-topics {
       border-color: var(--rentman-ink);
       color: var(--rentman-ink);
     }
+  }
+}
+
+// --- Category page header --------------------------------------------------
+//
+// Replaces Discourse's .category-heading, which isn't rendering here. Tile
+// treatment matches the homepage cards so the two views read as one system.
+
+.rm-cat-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 24px;
+
+  &__tile {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--rentman-radius);
+    background: var(--rentman-tile);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .d-icon {
+      width: 18px;
+      height: 18px;
+      color: inherit;
+    }
+  }
+
+  &__text {
+    min-width: 0;
+  }
+
+  &__name {
+    font-family: var(--rentman-font-body);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--rentman-ink);
+    margin: 0 0 4px;
+  }
+
+  &__desc {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--rentman-muted-text);
+    margin: 0;
+    max-width: 72ch;
+  }
+
+  &__count {
+    font-size: 13px;
+    color: var(--rentman-muted-text);
+    font-variant-numeric: tabular-nums;
+    margin: 8px 0 0;
   }
 }
