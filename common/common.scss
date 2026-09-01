@@ -188,9 +188,7 @@ textarea,
   // variable instead.
   --d-logo-height: 34px;
 
-  // The label is a sibling of the logo (home-logo__after), so the wrapper
-  // around both has to lay them out on one row. Discourse sets
-  // overflow: hidden on the outlet, which clips the label.
+  // Keeps the logo vertically centred in the bar.
   .home-logo-wrapper-outlet,
   .home-logo-wrapper,
   .home-logo-wrapper a {
@@ -207,32 +205,6 @@ textarea,
     display: block;
   }
 
-  .rm-lockup__divider {
-    flex: 0 0 auto;
-    width: 1px;
-    height: 24px;
-    margin: 0 16px;
-    background: var(--rentman-border);
-  }
-
-  // Support Center is Poppins 14px/500 on a 56px bar with a 26px logo.
-  // Ours sits on a taller bar with a 34px logo, so it steps up to 16px/600
-  // to hold the same weight in the lockup.
-  .rm-lockup__label {
-    font-family: var(--rentman-font-body);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--rentman-muted);
-    white-space: nowrap;
-  }
-
-  // The label is secondary to the logo; below tablet the logo carries it alone.
-  @media (max-width: 767px) {
-    .rm-lockup__divider,
-    .rm-lockup__label {
-      display: none;
-    }
   }
 }
 
@@ -478,8 +450,16 @@ input[type="search"] {
 // --- Chrome the pilot removes ----------------------------------------------
 // Opinionated IA choices carried over as-is: fewer competing entry points.
 
-.list-controls .category-breadcrumb,
-.list-controls .navigation-controls .category-breadcrumb,
+// Scoped to body.navigation-topics — the main topic list, where the category
+// dropdown duplicates the card grid above it. On a category page it is the
+// only wayfinding there is, so it stays.
+body.navigation-topics {
+  .list-controls .category-breadcrumb,
+  .list-controls .navigation-controls .category-breadcrumb {
+    display: none;
+  }
+}
+
 .list-controls .create-category,
 .navigation-controls .btn.create-category {
   display: none;
