@@ -585,13 +585,25 @@ input[type="search"] {
   }
 }
 
-// The banner search sits on the beige band, so it needs a white fill to read
-// as an input rather than dissolving into the panel.
-.welcome-banner .search-input,
-.welcome-banner input[type="search"],
-.welcome-banner__search-menu .search-input {
-  background: #fff;
-  border-color: var(--rentman-border);
+// --- Search belongs in the topbar, not the hero ----------------------------
+//
+// Discourse treats the banner search and the header search as ONE control
+// that swaps position on scroll, which is why there's no setting to remove
+// the banner's copy:
+//
+//   .header-search--enabled .floating-search-input-wrapper { display: flex }
+//   .welcome-banner--visible.header-search--enabled
+//     .floating-search-input-wrapper { display: none }
+//
+// So removing the banner's search means also cancelling the rule that hides
+// the header's — otherwise search disappears entirely at the top of the page.
+
+.welcome-banner__wrap .search-menu {
+  display: none;
+}
+
+.welcome-banner--visible.header-search--enabled .floating-search-input-wrapper {
+  display: flex;
 }
 
 // ---------------------------------------------------------------------------
