@@ -165,17 +165,9 @@ textarea,
 // ---------------------------------------------------------------------------
 // Block 1 — header
 //
-// One bar, styled to match the Support Center rather than adding a second
-// strip above it. The lockup is:
-//
-//     [ Rentman logo ] | Community
-//
-// Logo is Discourse's own site logo (site-wide Branding setting, untouched).
-// The divider and label come from the home-logo-contents connector.
-//
-// Spec adapted from support-center-theme: 1px #e5e5e5 rule and a muted
-// label. Sizes are scaled up from the Zendesk values — that header is 56px
-// tall, Discourse's is taller, so matching the numbers made both look small.
+// One bar: logo on the left, Discourse's search field and icons on the right.
+// The "| Community" lockup was removed once the search field moved into the
+// header — the two were competing for the same space.
 // ---------------------------------------------------------------------------
 
 .d-header {
@@ -203,8 +195,6 @@ textarea,
   #site-logo {
     width: auto;
     display: block;
-  }
-
   }
 }
 
