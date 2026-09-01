@@ -128,8 +128,14 @@
   --d-button-default-bg-color--hover: var(--rentman-beige-dark);
 
   // Primary button: ink surface, white text — 15.9:1
+  //
+  // Hover was #000, which is 13 points from #202121 — no visible change.
+  // #585858 is what the Support Center's `opacity: .75` on #202121 actually
+  // resolves to over white, so this matches it while keeping the label crisp
+  // (opacity would fade the text too). White on it is 7.1:1.
+  --rentman-ink-hover: #585858;
   --d-button-primary-bg-color: var(--rentman-ink);
-  --d-button-primary-bg-color--hover: #000;
+  --d-button-primary-bg-color--hover: var(--rentman-ink-hover);
   --d-button-primary-text-color: #fff;
   --d-button-primary-icon-color: #fff;
 }
@@ -718,7 +724,7 @@ body.navigation-topics {
     transition: background 0.15s ease;
 
     &:hover {
-      background: #000;
+      background: var(--rentman-ink-hover);
       color: #fff;
     }
   }
