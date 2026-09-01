@@ -291,11 +291,10 @@ body {
 // pilot's `padding: 24px` stacked on top of __wrap's padding, which is what
 // made this ~330px of mostly empty space.
 .welcome-banner {
-  // Dark hero, ported from support.rentman.io's .rm-hero (#202121, 56/52
-  // padding). Same job as the beige band it replaces — anchoring the top of
-  // the page — but it carries far more weight and gives the CTA somewhere to
-  // sit. No border; the fill is the edge.
-  background: var(--rentman-ink);
+  // Beige band, as rentman.io uses behind its header visuals. The dark
+  // #202121 version (ported from support.rentman.io's .rm-hero) was tried and
+  // reverted — too heavy against a white page. No border; the fill is the edge.
+  background: var(--rentman-band);
   border: 0;
 
   // Square, and butted against the header. The radius plus the gap above was
@@ -336,7 +335,7 @@ body {
   font-size: clamp(32px, 4.5vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--rentman-ink);
   margin: 0 0 10px;
   // Explicit, so this doesn't depend on which token name upstream is using.
   text-align: left;
@@ -352,7 +351,7 @@ body {
 
 .welcome-banner__subheader {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--rentman-muted-text);
   line-height: 1.55;
   margin: 0;
   // Left-aligned text needs a measure; the full column is far too wide.
@@ -737,11 +736,12 @@ input[type="search"] {
     text-decoration: none;
   }
 
-  // Orange surface with INK text: 5.28:1. White on orange would be 3.06:1 —
-  // which is what HubSpot's own hero button does, and it fails AA.
+  // Ink surface, white text — 15.9:1. Same primary treatment as New Topic and
+  // the Support Center's "Submit a request", rather than a second primary
+  // style just for the hero.
   &__primary {
-    background: var(--rentman-orange);
-    color: var(--rentman-ink);
+    background: var(--rentman-ink);
+    color: #fff;
     font-size: 15px;
     font-weight: 600;
     padding: 11px 20px;
@@ -749,15 +749,15 @@ input[type="search"] {
     transition: background 0.15s ease;
 
     &:hover {
-      background: var(--rentman-orange-soft);
-      color: var(--rentman-ink);
+      background: #000;
+      color: #fff;
     }
   }
 
-  // Outlined pill, as on the Support Center hero. White on #202121 is 15.9:1.
+  // Outlined, ink on the band — 12.7:1.
   &__secondary {
-    color: #fff;
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    color: var(--rentman-ink);
+    border: 1.5px solid rgba(32, 33, 33, 0.3);
     border-radius: var(--rentman-radius);
     padding: 9.5px 18px;
     font-size: 15px;
@@ -765,9 +765,9 @@ input[type="search"] {
     transition: background 0.15s ease, border-color 0.15s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: #fff;
-      color: #fff;
+      background: rgba(32, 33, 33, 0.06);
+      border-color: var(--rentman-ink);
+      color: var(--rentman-ink);
     }
   }
 }
