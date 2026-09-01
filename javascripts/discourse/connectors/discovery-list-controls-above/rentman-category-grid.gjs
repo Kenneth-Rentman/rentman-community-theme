@@ -5,6 +5,11 @@
 // and `style_type` fields per category; nothing here needs a theme setting
 // mapping slugs to icons.
 //
+// Rendered into `discovery-list-controls-above`, i.e. ABOVE the Latest /
+// Categories tab bar — not `discovery-above`, which sits between the tabs and
+// the list they filter. Categories are a way INTO content; putting them
+// between a tab bar and its own list breaks that relationship.
+//
 // Topic lists only. Not discovery.categories — that page IS a category list.
 
 import Component from "@glimmer/component";

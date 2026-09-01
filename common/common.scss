@@ -309,7 +309,10 @@ body {
   // spanned the full content column. support.rentman.io's .rm-hero has no
   // radius either; a hero is the one place the 8/12/16 scale doesn't apply.
   border-radius: 0;
-  margin: 0 0 24px;
+  // 48px, not 24. Losing the band also lost the hero's bottom edge; space is
+  // what replaces it. A rule here would be a third horizontal line in a
+  // region that already has the list header and the rail header.
+  margin: 0 0 48px;
 
   // Own the internal padding through Discourse's variables rather than
   // adding a second layer of our own.
@@ -656,6 +659,11 @@ input[type="search"] {
   background: transparent;
   border: 0;
   padding: 0;
+
+  // Match the topic list's header offset so "Leaderboard." and "Topic" share
+  // a baseline. Discourse sets .topic-list thead th padding-top to
+  // var(--space-3); same value here rather than a hardcoded nudge.
+  padding-top: var(--space-3);
 
   // Match the BROWSE CATEGORIES. label so the rail and the grid read as one
   // system. The text itself is the leaderboard's name, set in admin.
