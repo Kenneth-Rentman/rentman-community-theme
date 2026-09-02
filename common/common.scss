@@ -571,7 +571,13 @@ body.navigation-topics {
     color: var(--rentman-ink);
   }
 
+  // margin-top: auto pins the count to the bottom of the card. Grid rows
+  // stretch to equal height, but the count otherwise follows the name — so
+  // one-line and two-line names put their counts at different heights and the
+  // row reads ragged. Matters at eight categories, where longer names wrap.
   &__count {
+    margin-top: auto;
+    padding-top: 4px;
     font-size: 13px;
     color: var(--rentman-muted-text);
     font-variant-numeric: tabular-nums;
