@@ -655,6 +655,12 @@ body.navigation-topics {
     }
   }
 
+  // Was margin: 32px 136px — an 816px centred column against a full-width
+  // podium band, which is what made the page look misaligned.
+  .ranking {
+    margin-inline: 0;
+  }
+
   .ranking-col-names {
     padding: 12px 0 6px;
     font-size: 13px;
@@ -1001,11 +1007,44 @@ body.navigation-topics {
     border-radius: 0 0 var(--rentman-radius-xl) var(--rentman-radius-xl);
   }
 
+  // The plugin builds the podium with transforms — position 2 is
+  // translate(30px, 61px) and position 3 translate(-30px, 61px), tucking them
+  // inward and down behind the winner. Those offsets are calibrated for its
+  // 196px avatars; at our size they overlap. Dropped in favour of a flex gap
+  // with the boxes bottom-aligned, which gives the same podium read.
+  .podium {
+    align-items: flex-end;
+    gap: 28px;
+    padding: 32px 0 40px;
+  }
+
+  .winner {
+    transform: none;
+    width: 150px;
+  }
+
+  .winner.-position1 {
+    width: 170px;
+  }
+
+  // Hierarchy now comes from avatar size rather than the vertical offset.
   .winner__avatar,
   .winner__avatar img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+  }
+
+  .winner.-position1 .winner__avatar,
+  .winner.-position1 .winner__avatar img {
     width: 96px;
     height: 96px;
-    border-radius: 50%;
+  }
+
+  // "Alexandre_FLEURET" is wider than its box and was spilling into the
+  // neighbouring winner.
+  .winner__name {
+    overflow-wrap: anywhere;
   }
 
   .winner__name {
