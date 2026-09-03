@@ -655,12 +655,6 @@ body.navigation-topics {
     }
   }
 
-  // Was margin: 32px 136px — an 816px centred column against a full-width
-  // podium band, which is what made the page look misaligned.
-  .ranking {
-    margin-inline: 0;
-  }
-
   .ranking-col-names {
     padding: 12px 0 6px;
     font-size: 13px;
@@ -1002,9 +996,16 @@ body.navigation-topics {
 
   // --- Podium ---------------------------------------------------------------
 
+  // The plugin's desktop sheet centres the ranking at width: 75%, while the
+  // podium band runs full width behind it — that mismatch is what read as
+  // broken. Constraining the band to the same 75% aligns the two edges, and
+  // with the band no longer full-bleed it takes a full radius rather than
+  // bottom-only.
   .podium__wrapper {
+    width: 75%;
+    margin-inline: auto;
     background: var(--rentman-band);
-    border-radius: 0 0 var(--rentman-radius-xl) var(--rentman-radius-xl);
+    border-radius: var(--rentman-radius-xl);
   }
 
   // The plugin builds the podium with transforms — position 2 is
