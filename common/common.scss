@@ -1080,3 +1080,26 @@ body.navigation-topics {
     }
   }
 }
+
+// ---------------------------------------------------------------------------
+// Right Sidebar Blocks on mobile
+//
+// The rail (.tc-right-sidebar, from discourse-right-sidebar-blocks) is a
+// column beside the topic list on desktop. When that layout collapses it
+// stacks ABOVE the list, so a phone user scrolls past the whole leaderboard
+// before reaching a single topic.
+//
+// Hidden rather than reordered: moving it below an infinitely-scrolling topic
+// list means nobody ever reaches it. Both signals are used — Discourse sets
+// .mobile-view from the user agent, which a narrow desktop window won't get.
+// ---------------------------------------------------------------------------
+
+.mobile-view .tc-right-sidebar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .tc-right-sidebar {
+    display: none;
+  }
+}
