@@ -18,11 +18,12 @@ import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
-// Eight again, but only because the card is now horizontal. Stacked
-// icon-over-name-over-count made each card ~110px tall, so 4x2 cost ~230px of
-// vertical space before any content. Side-by-side brings a card to ~55px, and
-// eight of those in one row take less height than one row of the old ones.
-const MAX_PER_ROW = 8;
+// Back to four, but keeping the horizontal card. Eight in one row fits, and
+// costs only ~55px, but at ~195px per card the text is cramped and the longer
+// names clip. The saving was always in the card layout rather than the column
+// count: horizontal 4x2 is ~128px against ~230px for the old stacked 4x2,
+// with room for every name on one line.
+const MAX_PER_ROW = 4;
 
 function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
@@ -58,13 +59,14 @@ export default class RentmanCategoryGrid extends Component {
         countLabel: `${c.topic_count} ${
           c.topic_count === 1 ? "topic" : "topics"
         }`,
-        // Only the icon carries the category's colour. The tile stays a
-        // neutral grey — tinting it in the category colour turned every card
-        // into a peach square and, with all categories currently the same
-        // orange, told the reader nothing.
-        iconStyle: isHex(c.color)
-          ? htmlSafe(`color: #${c.color};`)
-          : null,
+        // With an icon: neutral grey tile, icon in the category colour.
+        // Without one (Staff, Events): a solid colour chip, because an empty
+        // grey square reads as a failed load.
+        iconStyle: !isHex(c.color)
+          ? null
+          : c.style_type === "icon" && c.icon
+            ? htmlSafe(`color: #${c.color};`)
+            : htmlSafe(`background: #${c.color};`),
       }));
   }
 

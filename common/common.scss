@@ -531,9 +531,9 @@ body.navigation-topics {
   // of eight cheaper than two rows of four.
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
-  padding: 10px 12px;
+  padding: 12px 14px;
   background: #fff;
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-xl);
@@ -567,13 +567,20 @@ body.navigation-topics {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    overflow: hidden;
   }
 
+  // Ellipsis rather than overflow. At 8-up "Announcements" spilled out of the
+  // card into the gutter; min-width: 0 lets the column shrink but nothing was
+  // clipping the text inside it.
   &__name {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.25;
     color: var(--rentman-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   // No margin-top: auto any more — that existed to pin counts to the bottom
@@ -586,25 +593,12 @@ body.navigation-topics {
   }
 }
 
-// 8 -> 4 -> 2. Eight divides evenly into both, so no step leaves a ragged
-// last row. Scoped to grids with 5+ or 3+ columns respectively, so a site
-// with one or two categories is never forced into a half-empty row.
-@media (max-width: 1300px) {
-  .rm-cats__grid[data-columns="5"],
-  .rm-cats__grid[data-columns="6"],
-  .rm-cats__grid[data-columns="7"],
-  .rm-cats__grid[data-columns="8"] {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 800px) {
+// 4 -> 2. Eight categories divide evenly into both, so no step leaves a
+// ragged last row. Scoped by column count so a site with one or two
+// categories is never forced into a half-empty row.
+@media (max-width: 900px) {
   .rm-cats__grid[data-columns="3"],
-  .rm-cats__grid[data-columns="4"],
-  .rm-cats__grid[data-columns="5"],
-  .rm-cats__grid[data-columns="6"],
-  .rm-cats__grid[data-columns="7"],
-  .rm-cats__grid[data-columns="8"] {
+  .rm-cats__grid[data-columns="4"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
