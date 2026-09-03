@@ -43,14 +43,12 @@ export default class RentmanCategoryGrid extends Component {
     const uncategorized = this.site.uncategorized_category_id;
 
     return (this.site.categories ?? [])
-      .filter(
-        (c) =>
-          !c.parent_category_id &&
-          c.id !== uncategorized &&
-          // Staff-only rooms shouldn't sit in a public browse grid, even for
-          // the staff who can see them — the sidebar already lists those.
-          !c.read_restricted
-      )
+      // No read_restricted filter. site.categories already contains only what
+      // the current user can see, so a restricted category in this list is
+      // one they have access to — and hiding it from the grid while the
+      // sidebar lists it is just confusing. Private categories now appear for
+      // the people who can read them, and for nobody else.
+      .filter((c) => !c.parent_category_id && c.id !== uncategorized)
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((c) => ({
         id: c.id,
