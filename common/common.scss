@@ -584,14 +584,13 @@ body.navigation-topics {
   }
 }
 
-@media (max-width: 1100px) {
-  .rm-cats__grid[data-columns] {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .rm-cats__grid[data-columns] {
+// 4 -> 2, skipping 3: with eight categories a three-column row leaves a
+// ragged pair at the end, while 4x2 and 2x4 both come out even. Only applies
+// to grids that actually have 3-4 columns, so a site with one or two
+// categories isn't forced into a half-empty row.
+@media (max-width: 900px) {
+  .rm-cats__grid[data-columns="3"],
+  .rm-cats__grid[data-columns="4"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
