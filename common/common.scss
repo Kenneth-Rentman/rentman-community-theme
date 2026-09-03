@@ -809,3 +809,165 @@ body.navigation-topics {
     max-width: 100ch;
   }
 }
+
+// ---------------------------------------------------------------------------
+// Footer — ported from support.rentman.io's .rm-footer
+//
+// Values from the Zendesk theme: #202121 ground, 60px top padding, a
+// 2fr/1fr/1fr/1fr grid, 11px/700 column titles at 0.1em tracking, 14px links
+// at 70% white. The one deliberate change is the column set — the Support
+// Center's documentation columns are replaced with community destinations.
+// ---------------------------------------------------------------------------
+
+.rm-footer {
+  background: var(--rentman-ink);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--rentman-font-body);
+  padding: 60px 0 0;
+  margin-top: 48px;
+
+  &__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  &__logo {
+    height: 32px;
+    width: auto;
+    display: block;
+    margin-bottom: 14px;
+    color: #fff; // wordmark paths use currentColor; the mark stays orange
+  }
+
+  &__tagline {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 16px;
+    max-width: 240px;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #6b7280;
+
+    &--ok {
+      background: var(--rentman-green);
+    }
+
+    &--issue {
+      background: var(--rentman-yellow);
+    }
+  }
+
+  &__status-link {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+
+    &:visited {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  &__col-title {
+    font-family: var(--rentman-font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0 16px;
+  }
+
+  &__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    a,
+    a:visited {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  &__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__copy {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+
+  &__legal {
+    display: flex;
+    gap: 20px;
+
+    a,
+    a:visited {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  // The Zendesk footer collapses 4 -> 2 -> 1; same steps here.
+  @media (max-width: 1000px) {
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding-top: 40px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+}
