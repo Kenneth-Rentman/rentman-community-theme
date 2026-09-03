@@ -18,7 +18,12 @@ import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
-const MAX_PER_ROW = 8;
+// Back to four, but keeping the horizontal card. Eight in one row fits, and
+// costs only ~55px, but at ~195px per card the text is cramped and the longer
+// names clip. The saving was always in the card layout rather than the column
+// count: horizontal 4x2 is ~128px against ~230px for the old stacked 4x2,
+// with room for every name on one line.
+const MAX_PER_ROW = 4;
 
 function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
@@ -39,14 +44,12 @@ export default class RentmanCategoryGrid extends Component {
     const uncategorized = this.site.uncategorized_category_id;
 
     return (this.site.categories ?? [])
-      .filter(
-        (c) =>
-          !c.parent_category_id &&
-          c.id !== uncategorized &&
-          // Staff-only rooms shouldn't sit in a public browse grid, even for
-          // the staff who can see them — the sidebar already lists those.
-          !c.read_restricted
-      )
+      // No read_restricted filter. site.categories already contains only what
+      // the current user can see, so a restricted category in this list is
+      // one they have access to — and hiding it from the grid while the
+      // sidebar lists it is just confusing. Private categories now appear for
+      // the people who can read them, and for nobody else.
+      .filter((c) => !c.parent_category_id && c.id !== uncategorized)
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((c) => ({
         id: c.id,
@@ -56,13 +59,14 @@ export default class RentmanCategoryGrid extends Component {
         countLabel: `${c.topic_count} ${
           c.topic_count === 1 ? "topic" : "topics"
         }`,
-        // Only the icon carries the category's colour. The tile stays a
-        // neutral grey — tinting it in the category colour turned every card
-        // into a peach square and, with all categories currently the same
-        // orange, told the reader nothing.
-        iconStyle: isHex(c.color)
-          ? htmlSafe(`color: #${c.color};`)
-          : null,
+        // With an icon: neutral grey tile, icon in the category colour.
+        // Without one (Staff, Events): a solid colour chip, because an empty
+        // grey square reads as a failed load.
+        iconStyle: !isHex(c.color)
+          ? null
+          : c.style_type === "icon" && c.icon
+            ? htmlSafe(`color: #${c.color};`)
+            : htmlSafe(`background: #${c.color};`),
       }));
   }
 
@@ -82,8 +86,10 @@ export default class RentmanCategoryGrid extends Component {
               <span class="rm-cat__tile" style={{c.iconStyle}} aria-hidden="true">
                 {{#if c.icon}}{{dIcon c.icon}}{{/if}}
               </span>
-              <span class="rm-cat__name">{{c.name}}</span>
-              <span class="rm-cat__count">{{c.countLabel}}</span>
+              <span class="rm-cat__text">
+                <span class="rm-cat__name">{{c.name}}</span>
+                <span class="rm-cat__count">{{c.countLabel}}</span>
+              </span>
             </a>
           {{/each}}
         </div>

@@ -526,12 +526,14 @@ body.navigation-topics {
 }
 
 .rm-cat {
+  // Horizontal, not stacked. Icon above name above count made each card
+  // ~110px tall; side by side it is ~55px, which is what makes a single row
+  // of eight cheaper than two rows of four.
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 7px;
+  align-items: center;
+  gap: 12px;
   min-width: 0;
-  padding: 13px 12px;
+  padding: 12px 14px;
   background: #fff;
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-xl);
@@ -544,48 +546,59 @@ body.navigation-topics {
     text-decoration: none;
   }
 
-  // Tinted tile carrying the category's own icon. Background and icon colour
-  // are set inline from the category's colour by the component.
   &__tile {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: var(--rentman-radius);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    // Neutral grey tile; only the icon carries the category colour.
     background: var(--rentman-tile);
 
     .d-icon {
-      width: 15px;
-      height: 15px;
+      width: 13px;
+      height: 13px;
       color: inherit;
     }
   }
 
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  // Ellipsis rather than overflow. At 8-up "Announcements" spilled out of the
+  // card into the gutter; min-width: 0 lets the column shrink but nothing was
+  // clipping the text inside it.
   &__name {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.25;
     color: var(--rentman-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  // No margin-top: auto any more — that existed to pin counts to the bottom
+  // of equal-height stacked cards, which this layout doesn't have.
   &__count {
     font-size: 13px;
+    line-height: 1.3;
     color: var(--rentman-muted-text);
     font-variant-numeric: tabular-nums;
   }
 }
 
-@media (max-width: 1100px) {
-  .rm-cats__grid[data-columns] {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .rm-cats__grid[data-columns] {
+// 4 -> 2. Eight categories divide evenly into both, so no step leaves a
+// ragged last row. Scoped by column count so a site with one or two
+// categories is never forced into a half-empty row.
+@media (max-width: 900px) {
+  .rm-cats__grid[data-columns="3"],
+  .rm-cats__grid[data-columns="4"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -802,5 +815,268 @@ body.navigation-topics {
     color: var(--rentman-muted-text);
     margin: 3px 0 0;
     max-width: 100ch;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Footer — ported from support.rentman.io's .rm-footer
+//
+// Values from the Zendesk theme: #202121 ground, 60px top padding, a
+// 2fr/1fr/1fr/1fr grid, 11px/700 column titles at 0.1em tracking, 14px links
+// at 70% white. The one deliberate change is the column set — the Support
+// Center's documentation columns are replaced with community destinations.
+// ---------------------------------------------------------------------------
+
+.rm-footer {
+  background: var(--rentman-ink);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--rentman-font-body);
+  padding: 60px 0 0;
+  margin-top: 48px;
+
+  &__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  &__logo {
+    height: 32px;
+    width: auto;
+    display: block;
+    margin-bottom: 14px;
+    color: #fff; // wordmark paths use currentColor; the mark stays orange
+  }
+
+  &__tagline {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 16px;
+    max-width: 240px;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #6b7280;
+
+    &--ok {
+      background: var(--rentman-green);
+    }
+
+    &--issue {
+      background: var(--rentman-yellow);
+    }
+  }
+
+  &__status-link {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+
+    &:visited {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  &__col-title {
+    font-family: var(--rentman-font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0 16px;
+  }
+
+  &__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    a,
+    a:visited {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  &__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__copy {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+
+  &__legal {
+    display: flex;
+    gap: 20px;
+
+    a,
+    a:visited {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  // The Zendesk footer collapses 4 -> 2 -> 1; same steps here.
+  @media (max-width: 1000px) {
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding-top: 40px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Leaderboard page (/leaderboard/:id)
+//
+// Scoped with :not(.-minimal) so none of this touches the rail version in the
+// discovery sidebar, which has its own block above.
+//
+// The plugin's defaults are a long way from this theme: the podium sits on
+// rgba(255,94,29,.1) — a tint of the brand orange, i.e. the peach removed
+// everywhere else — the winner avatars are 196px, and the ranking rows are
+// 64px grey pills with 20px gaps, which made the page ~8,800px tall. Type
+// runs to 26–32px, well outside our scale.
+// ---------------------------------------------------------------------------
+
+.leaderboard:not(.-minimal) {
+  // Deliberately minimal. An earlier pass shrank the winner avatars from
+  // 196px to 96px, which broke the transforms, box widths and badge
+  // positions the plugin builds around that size — every layout fault after
+  // that traced back to it. The plugin's geometry is left alone now; only
+  // colour and type are overridden.
+
+  .page__title {
+    font-family: var(--rentman-font-body);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--rentman-ink);
+  }
+
+  // The band ran full width while the plugin centres the ranking at 75%.
+  // Matching it aligns the two edges; no longer full-bleed, so full radius.
+  .podium__wrapper {
+    width: 75%;
+    margin-inline: auto;
+    background: var(--rentman-band);
+    border-radius: var(--rentman-radius-xl);
+  }
+
+  .winner__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rentman-ink);
+  }
+
+  .winner__score {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--rentman-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Rank badges keep the plugin's gold/silver/bronze — they're already
+  // position-coded, and overriding them flattened that to one colour.
+
+  .ranking-col-names {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--rentman-muted);
+    background: var(--rentman-page-bg);
+    padding: 16px 0 6px;
+  }
+
+  // Flat rows with a hairline, matching the topic list. The plugin's 64px
+  // grey pills with 20px gaps are what made this page ~8,800px tall.
+  .user {
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid var(--rentman-hairline);
+    padding: 10px 0;
+    margin-bottom: 0;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    &__rank {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--rentman-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    &__avatar img {
+      width: 32px;
+      height: 32px;
+    }
+
+    &__name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--rentman-ink);
+    }
+
+    &__score {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--rentman-ink);
+      font-variant-numeric: tabular-nums;
+    }
   }
 }
