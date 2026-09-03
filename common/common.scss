@@ -986,6 +986,12 @@ body.navigation-topics {
 // ---------------------------------------------------------------------------
 
 .leaderboard:not(.-minimal) {
+  // Deliberately minimal. An earlier pass shrank the winner avatars from
+  // 196px to 96px, which broke the transforms, box widths and badge
+  // positions the plugin builds around that size — every layout fault after
+  // that traced back to it. The plugin's geometry is left alone now; only
+  // colour and type are overridden.
+
   .page__title {
     font-family: var(--rentman-font-body);
     font-size: 22px;
@@ -994,58 +1000,13 @@ body.navigation-topics {
     color: var(--rentman-ink);
   }
 
-  // --- Podium ---------------------------------------------------------------
-
-  // The plugin's desktop sheet centres the ranking at width: 75%, while the
-  // podium band runs full width behind it — that mismatch is what read as
-  // broken. Constraining the band to the same 75% aligns the two edges, and
-  // with the band no longer full-bleed it takes a full radius rather than
-  // bottom-only.
+  // The band ran full width while the plugin centres the ranking at 75%.
+  // Matching it aligns the two edges; no longer full-bleed, so full radius.
   .podium__wrapper {
     width: 75%;
     margin-inline: auto;
     background: var(--rentman-band);
     border-radius: var(--rentman-radius-xl);
-  }
-
-  // The plugin builds the podium with transforms — position 2 is
-  // translate(30px, 61px) and position 3 translate(-30px, 61px), tucking them
-  // inward and down behind the winner. Those offsets are calibrated for its
-  // 196px avatars; at our size they overlap. Dropped in favour of a flex gap
-  // with the boxes bottom-aligned, which gives the same podium read.
-  .podium {
-    align-items: flex-end;
-    gap: 28px;
-    padding: 32px 0 40px;
-  }
-
-  .winner {
-    transform: none;
-    width: 150px;
-  }
-
-  .winner.-position1 {
-    width: 170px;
-  }
-
-  // Hierarchy now comes from avatar size rather than the vertical offset.
-  .winner__avatar,
-  .winner__avatar img {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-  }
-
-  .winner.-position1 .winner__avatar,
-  .winner.-position1 .winner__avatar img {
-    width: 96px;
-    height: 96px;
-  }
-
-  // "Alexandre_FLEURET" is wider than its box and was spilling into the
-  // neighbouring winner.
-  .winner__name {
-    overflow-wrap: anywhere;
   }
 
   .winner__name {
@@ -1055,24 +1016,14 @@ body.navigation-topics {
   }
 
   .winner__score {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--rentman-ink);
     font-variant-numeric: tabular-nums;
   }
 
-  // First place keeps a gold badge — it's a recognised convention — but the
-  // plugin's #ffd82a isn't ours. Ink on our yellow is 11.6:1.
-  .winner__rank {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    background: var(--rentman-yellow);
-    color: var(--rentman-ink);
-  }
-
-  // --- Ranking list ---------------------------------------------------------
+  // Rank badges keep the plugin's gold/silver/bronze — they're already
+  // position-coded, and overriding them flattened that to one colour.
 
   .ranking-col-names {
     font-size: 13px;
@@ -1082,8 +1033,8 @@ body.navigation-topics {
     padding: 16px 0 6px;
   }
 
-  // Flat rows with a hairline, matching the topic list. The pills were the
-  // main reason this page scrolled forever.
+  // Flat rows with a hairline, matching the topic list. The plugin's 64px
+  // grey pills with 20px gaps are what made this page ~8,800px tall.
   .user {
     background: transparent;
     border-radius: 0;
