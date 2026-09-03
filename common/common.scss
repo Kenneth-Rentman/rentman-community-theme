@@ -971,3 +971,113 @@ body.navigation-topics {
     }
   }
 }
+
+// ---------------------------------------------------------------------------
+// Leaderboard page (/leaderboard/:id)
+//
+// Scoped with :not(.-minimal) so none of this touches the rail version in the
+// discovery sidebar, which has its own block above.
+//
+// The plugin's defaults are a long way from this theme: the podium sits on
+// rgba(255,94,29,.1) — a tint of the brand orange, i.e. the peach removed
+// everywhere else — the winner avatars are 196px, and the ranking rows are
+// 64px grey pills with 20px gaps, which made the page ~8,800px tall. Type
+// runs to 26–32px, well outside our scale.
+// ---------------------------------------------------------------------------
+
+.leaderboard:not(.-minimal) {
+  .page__title {
+    font-family: var(--rentman-font-body);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--rentman-ink);
+  }
+
+  // --- Podium ---------------------------------------------------------------
+
+  .podium__wrapper {
+    background: var(--rentman-band);
+    border-radius: 0 0 var(--rentman-radius-xl) var(--rentman-radius-xl);
+  }
+
+  .winner__avatar,
+  .winner__avatar img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+  }
+
+  .winner__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rentman-ink);
+  }
+
+  .winner__score {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--rentman-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  // First place keeps a gold badge — it's a recognised convention — but the
+  // plugin's #ffd82a isn't ours. Ink on our yellow is 11.6:1.
+  .winner__rank {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    background: var(--rentman-yellow);
+    color: var(--rentman-ink);
+  }
+
+  // --- Ranking list ---------------------------------------------------------
+
+  .ranking-col-names {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--rentman-muted);
+    background: var(--rentman-page-bg);
+    padding: 16px 0 6px;
+  }
+
+  // Flat rows with a hairline, matching the topic list. The pills were the
+  // main reason this page scrolled forever.
+  .user {
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid var(--rentman-hairline);
+    padding: 10px 0;
+    margin-bottom: 0;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    &__rank {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--rentman-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    &__avatar img {
+      width: 32px;
+      height: 32px;
+    }
+
+    &__name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--rentman-ink);
+    }
+
+    &__score {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--rentman-ink);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
