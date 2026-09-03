@@ -526,12 +526,14 @@ body.navigation-topics {
 }
 
 .rm-cat {
+  // Horizontal, not stacked. Icon above name above count made each card
+  // ~110px tall; side by side it is ~55px, which is what makes a single row
+  // of eight cheaper than two rows of four.
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 7px;
+  align-items: center;
+  gap: 10px;
   min-width: 0;
-  padding: 13px 12px;
+  padding: 10px 12px;
   background: #fff;
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-xl);
@@ -544,24 +546,27 @@ body.navigation-topics {
     text-decoration: none;
   }
 
-  // Tinted tile carrying the category's own icon. Background and icon colour
-  // are set inline from the category's colour by the component.
   &__tile {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: var(--rentman-radius);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    // Neutral grey tile; only the icon carries the category colour.
     background: var(--rentman-tile);
 
     .d-icon {
-      width: 15px;
-      height: 15px;
+      width: 13px;
+      height: 13px;
       color: inherit;
     }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
 
   &__name {
@@ -571,26 +576,35 @@ body.navigation-topics {
     color: var(--rentman-ink);
   }
 
-  // margin-top: auto pins the count to the bottom of the card. Grid rows
-  // stretch to equal height, but the count otherwise follows the name — so
-  // one-line and two-line names put their counts at different heights and the
-  // row reads ragged. Matters at eight categories, where longer names wrap.
+  // No margin-top: auto any more — that existed to pin counts to the bottom
+  // of equal-height stacked cards, which this layout doesn't have.
   &__count {
-    margin-top: auto;
-    padding-top: 4px;
     font-size: 13px;
+    line-height: 1.3;
     color: var(--rentman-muted-text);
     font-variant-numeric: tabular-nums;
   }
 }
 
-// 4 -> 2, skipping 3: with eight categories a three-column row leaves a
-// ragged pair at the end, while 4x2 and 2x4 both come out even. Only applies
-// to grids that actually have 3-4 columns, so a site with one or two
-// categories isn't forced into a half-empty row.
-@media (max-width: 900px) {
+// 8 -> 4 -> 2. Eight divides evenly into both, so no step leaves a ragged
+// last row. Scoped to grids with 5+ or 3+ columns respectively, so a site
+// with one or two categories is never forced into a half-empty row.
+@media (max-width: 1300px) {
+  .rm-cats__grid[data-columns="5"],
+  .rm-cats__grid[data-columns="6"],
+  .rm-cats__grid[data-columns="7"],
+  .rm-cats__grid[data-columns="8"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
   .rm-cats__grid[data-columns="3"],
-  .rm-cats__grid[data-columns="4"] {
+  .rm-cats__grid[data-columns="4"],
+  .rm-cats__grid[data-columns="5"],
+  .rm-cats__grid[data-columns="6"],
+  .rm-cats__grid[data-columns="7"],
+  .rm-cats__grid[data-columns="8"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

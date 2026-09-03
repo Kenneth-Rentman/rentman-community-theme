@@ -18,11 +18,11 @@ import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
-// Four, not eight. Eight across on a wide screen gives ~195px cards holding a
-// 30px tile and two short lines — mostly empty, and the longer names wrap for
-// no reason. Four also keeps the current four-category layout unchanged, and
-// eight divides into it as a clean 4x2.
-const MAX_PER_ROW = 4;
+// Eight again, but only because the card is now horizontal. Stacked
+// icon-over-name-over-count made each card ~110px tall, so 4x2 cost ~230px of
+// vertical space before any content. Side-by-side brings a card to ~55px, and
+// eight of those in one row take less height than one row of the old ones.
+const MAX_PER_ROW = 8;
 
 function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
@@ -84,8 +84,10 @@ export default class RentmanCategoryGrid extends Component {
               <span class="rm-cat__tile" style={{c.iconStyle}} aria-hidden="true">
                 {{#if c.icon}}{{dIcon c.icon}}{{/if}}
               </span>
-              <span class="rm-cat__name">{{c.name}}</span>
-              <span class="rm-cat__count">{{c.countLabel}}</span>
+              <span class="rm-cat__text">
+                <span class="rm-cat__name">{{c.name}}</span>
+                <span class="rm-cat__count">{{c.countLabel}}</span>
+              </span>
             </a>
           {{/each}}
         </div>
