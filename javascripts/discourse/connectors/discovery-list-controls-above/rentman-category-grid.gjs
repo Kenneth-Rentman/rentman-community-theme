@@ -25,6 +25,16 @@ const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 // with room for every name on one line.
 const MAX_PER_ROW = 4;
 
+// Categories to keep out of the grid, from the theme setting. Discourse hands
+// list settings back as a pipe-delimited string on some versions and an array
+// on others, so both are handled. Matched against slug OR id, since a slug is
+// readable in admin but changes if the category is renamed.
+const EXCLUDED = (() => {
+  const raw = settings.category_grid_excluded;
+  const parts = Array.isArray(raw) ? raw : String(raw ?? "").split("|");
+  return parts.map((v) => String(v).trim().toLowerCase()).filter(Boolean);
+})();
+
 function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
 }
@@ -49,7 +59,13 @@ export default class RentmanCategoryGrid extends Component {
       // one they have access to — and hiding it from the grid while the
       // sidebar lists it is just confusing. Private categories now appear for
       // the people who can read them, and for nobody else.
-      .filter((c) => !c.parent_category_id && c.id !== uncategorized)
+      .filter(
+        (c) =>
+          !c.parent_category_id &&
+          c.id !== uncategorized &&
+          !EXCLUDED.includes(String(c.slug).toLowerCase()) &&
+          !EXCLUDED.includes(String(c.id))
+      )
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((c) => ({
         id: c.id,

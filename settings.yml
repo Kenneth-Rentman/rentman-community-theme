@@ -31,3 +31,10 @@ hero_secondary_cta_label:
 hero_secondary_cta_url:
   type: string
   default: "https://support.rentman.io"
+
+category_grid_excluded:
+  type: list
+  list_type: simple
+  default: ""
+  allow_any: true
+  choices:

@@ -10,3 +10,4 @@ en:
       hero_primary_cta_url: "Where the primary hero button goes. /new-topic opens the composer."
       hero_secondary_cta_label: "Secondary hero button label. Leave empty to show only the primary."
       hero_secondary_cta_url: "Where the secondary hero button goes."
+      category_grid_excluded: "Categories to leave out of the homepage grid. Use the category slug (e.g. staff) or its numeric id. Does not affect the sidebar, the Categories page, or who can read the category — it only hides the tile."
