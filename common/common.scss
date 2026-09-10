@@ -499,9 +499,24 @@ body.navigation-topics {
     // yellow are within 1.7:1 of the sidebar ground and need an edge.
     box-shadow: inset 0 0 0 1px rgba(32, 33, 33, 0.1);
 
+    // Fallback fill, so this degrades to "right for dark tiles" instead of to
+    // "inverted" when the rentman-sidebar-tiles stylesheet is missing.
+    // Discourse sets the category colour inline as `color` on this span, so
+    // currentColor picks it up as the tile fill for free; the initializer then
+    // overrides both with the exact computed pair, and wins on specificity
+    // because its selector carries the [data-link-name] as well.
+    //
+    // Without this the geometry applied and the fill did not, which is exactly
+    // the inversion reported on the black-and-white palette.
+    background: currentColor;
+
     .prefix-icon {
       width: 12px;
       height: 12px;
+      // White is right for every dark tile, which is the whole palette under
+      // the black-and-white direction. Pale tiles need ink and only the
+      // initializer can know that, so it overrides this.
+      color: #fff;
     }
 
     // The lock on a restricted category is drawn inside the same prefix. At

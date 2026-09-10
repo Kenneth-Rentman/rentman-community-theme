@@ -49,7 +49,11 @@ function buildCss(categories) {
 
 export default {
   name: "rentman-sidebar-tiles",
-  after: "message-bus",
+  // No `after:` ordering. An earlier version declared `after: "message-bus"`,
+  // which this needs nothing from — it only reads the site service, which is
+  // built from preloaded data. An unresolvable dependency name can stop an
+  // initializer running altogether, and the sibling initializer that does work
+  // declares no ordering either.
 
   initialize(owner) {
     try {
