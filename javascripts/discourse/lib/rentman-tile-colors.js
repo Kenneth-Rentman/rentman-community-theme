@@ -38,9 +38,25 @@ export function contrast(a, b) {
 
 const INK_LUMINANCE = luminance(INK);
 
-// White or ink, whichever reads better on a tile of this colour.
+// WCAG 1.4.11, the threshold for non-text graphical objects. These glyphs are
+// icons, not text, so 3:1 applies rather than 4.5:1.
+const GRAPHICS_THRESHOLD = 3;
+
+// White where white works, ink only where it doesn't.
+//
+// This deliberately does NOT maximise contrast. Maximising picks ink on brand
+// orange, because ink reaches 5.28:1 there against white's 3.06:1 — but the
+// brand book calls dark grey on orange a misuse (p.15) and draws product icons
+// white on an orange square (p.26). White is the intent; contrast is the
+// constraint. So take white whenever it clears the threshold and fall back to
+// ink only for the genuinely pale grounds, where white fails outright — Crew
+// yellow at 1.69, beige at 1.21.
+//
+// A fallback is always safe: white and ink are equal at 4.09:1, so whichever
+// of the two is better is never below that. There is no colour where both
+// fail, which is why this needs no third option.
 export function glyphColor(hex) {
-  const tile = luminance(hex);
+  const onWhite = contrast(luminance(hex), 1);
   // #fff has a relative luminance of exactly 1.
-  return contrast(tile, 1) >= contrast(tile, INK_LUMINANCE) ? "#fff" : `#${INK}`;
+  return onWhite >= GRAPHICS_THRESHOLD ? "#fff" : `#${INK}`;
 }
