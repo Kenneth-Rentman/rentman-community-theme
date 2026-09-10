@@ -16,6 +16,9 @@ import Component from "@glimmer/component";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
+// Shared with the sidebar mini-tiles so the two surfaces cannot derive a
+// different glyph colour for the same category.
+import { glyphColor, isHex } from "../../lib/rentman-tile-colors";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 // Back to four, but keeping the horizontal card. Eight in one row fits, and
@@ -34,44 +37,6 @@ const EXCLUDED = (() => {
   const parts = Array.isArray(raw) ? raw : String(raw ?? "").split("|");
   return parts.map((v) => String(v).trim().toLowerCase()).filter(Boolean);
 })();
-
-function isHex(color) {
-  return !!color && /^[0-9a-f]{6}$/i.test(color);
-}
-
-// The tile carries the category colour and the glyph sits on top of it, so the
-// glyph needs to be white on dark tiles and ink on pale ones. That could be a
-// second setting to maintain alongside the colour, but it is derivable: only
-// two glyph colours are ever in play, so take whichever contrasts better.
-// Deriving it means the pair can never drift out of sync in admin.
-const INK = "202121";
-
-function channel(v) {
-  const c = v / 255;
-  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-}
-
-// WCAG 2.1 relative luminance.
-function luminance(hex) {
-  const n = parseInt(hex, 16);
-  return (
-    0.2126 * channel((n >> 16) & 255) +
-    0.7152 * channel((n >> 8) & 255) +
-    0.0722 * channel(n & 255)
-  );
-}
-
-function contrast(a, b) {
-  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-}
-
-const INK_LUMINANCE = luminance(INK);
-
-function glyphColor(hex) {
-  const tile = luminance(hex);
-  // #fff has a relative luminance of exactly 1.
-  return contrast(tile, 1) >= contrast(tile, INK_LUMINANCE) ? "#fff" : `#${INK}`;
-}
 
 export default class RentmanCategoryGrid extends Component {
   @service site;
