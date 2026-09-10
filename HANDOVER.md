@@ -14,10 +14,10 @@ Two themes on **mcp-beta.rentman.io**:
 Workflow: push to `develop`, look at it on theme 12, and when it's approved merge to
 `main` and update theme 8 from the admin.
 
-**Unmerged:** four commits on `develop` only — `1c06f3d` (sprite plumbing),
-`022f6c1` (flip the tile + the eight icons), `da7f4d5` (sidebar mini-tiles),
-`fb6c601` (prefer a white glyph where white clears 3:1). `main` is still at
-`030cd93`. Theme 8 carries none of it: no sprite, no tile fill, no sidebar tiles.
+**Unmerged:** five commits on `develop` only — `1c06f3d` (sprite plumbing),
+`022f6c1` (flip the tile + the hand-drawn icons), `da7f4d5` (sidebar mini-tiles),
+`fb6c601` (prefer a white glyph where white clears 3:1), `24bc298` (swap icons to
+Lucide). `main` is still at `030cd93`. Theme 8 carries none of it: no sprite, no tile fill, no sidebar tiles.
 
 Do not merge until the palette and the icon set are settled — a category pointing
 at a `rentman-*` icon renders blank for anyone whose theme lacks the sprite.
@@ -107,7 +107,7 @@ Mockup: https://claude.ai/code/artifact/d3a7c15b-874b-4e09-954a-5adb27fbbbcb
   Monochrome and all-orange both sidestep the palette argument entirely and keep
   orange as the pure interaction accent, which the house rule above wants — but see
   the icon note, which they make worse.
-- **Icons are now Lucide** (`e1c2f0a`), replacing the hand-drawn rectangle set. The
+- **Icons are now Lucide** (`24bc298`), replacing the hand-drawn rectangle set. The
   p.26 rule (rectangles and squares only) held shape at 16px but **converged
   silhouettes** — Getting Started, Equipment & Warehouse and Crew all became square
   clusters, which colour masked and a single-colour tile does not. Lucide is already
