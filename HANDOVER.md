@@ -14,13 +14,12 @@ Two themes on **mcp-beta.rentman.io**:
 Workflow: push to `develop`, look at it on theme 12, and when it's approved merge to
 `main` and update theme 8 from the admin.
 
-**Unmerged:** five commits on `develop` only — `1c06f3d` (sprite plumbing),
-`022f6c1` (flip the tile + the hand-drawn icons), `da7f4d5` (sidebar mini-tiles),
-`fb6c601` (prefer a white glyph where white clears 3:1), `24bc298` (swap icons to
-Lucide). `main` is still at `030cd93`. Theme 8 carries none of it: no sprite, no tile fill, no sidebar tiles.
+**Unmerged:** nothing. `main` and `develop` are both at `d8f9487` (merged and pushed
+2026-09-10). Working tree clean.
 
-Do not merge until the palette and the icon set are settled — a category pointing
-at a `rentman-*` icon renders blank for anyone whose theme lacks the sprite.
+**Theme 8 has NOT been updated from admin yet.** Until it is, the live theme still
+lacks the sprite, so every category — all eight now point at a `rentman-*` icon —
+renders a blank tile for members. Update theme 8 as the next action.
 
 ## What's built
 
