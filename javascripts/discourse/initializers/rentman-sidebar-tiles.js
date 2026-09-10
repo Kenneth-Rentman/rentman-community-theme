@@ -38,10 +38,12 @@ function buildCss(categories) {
       const sel = `.sidebar-section[data-section-name="categories"] .sidebar-section-link[data-link-name="${c.slug}"] .sidebar-section-link-prefix.icon`;
       return (
         `${sel}{background:#${c.color};color:${glyphColor(c.color)}}` +
-        // The glyph and the lock badge on restricted categories both take the
-        // computed colour; without this the badge keeps Discourse's tint and
-        // disappears into the fill.
-        `${sel} .prefix-icon,${sel} .prefix-badge{color:${glyphColor(c.color)}}`
+        // Only the glyph. NOT the lock badge on restricted categories: it is
+        // positioned to overhang the tile's top-right corner onto the sidebar
+        // ground, so it needs to contrast with the sidebar, not with the tile.
+        // Giving it the glyph colour turned it white on a black tile, i.e.
+        // invisible. Discourse's own --d-sidebar-link-color is correct here.
+        `${sel} .prefix-icon{color:${glyphColor(c.color)}}`
       );
     })
     .join("");

@@ -519,15 +519,14 @@ body.navigation-topics {
       color: #fff;
     }
 
-    // The lock on a restricted category is drawn inside the same prefix. At
-    // 20px it has nowhere to sit without fouling the glyph, so it moves to the
-    // tile's bottom-right corner and picks up the card ground behind it.
-    .prefix-badge {
-      width: 9px;
-      height: 9px;
-      bottom: -2px;
-      right: -3px;
-    }
+    // The lock on a restricted category is left to Discourse, deliberately.
+    // It positions the badge with `top: -0.2em; right: 0` so it overhangs the
+    // prefix onto the sidebar ground, and colours it with
+    // --d-sidebar-link-color. Both are right for a tile that is now filled:
+    // the badge reads against the sidebar rather than against the tile.
+    //
+    // An earlier version set `bottom`/`right` here, which did nothing —
+    // Discourse's `top` plus an explicit height already resolves the position.
   }
 }
 
