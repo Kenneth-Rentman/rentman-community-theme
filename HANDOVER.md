@@ -183,6 +183,17 @@ Next action first.
   points at a custom icon, or every member sees a blank tile.
 - `svg_icon_subset` is not the mechanism — sprite symbols self-register via
   `SvgSprite.custom_icons`. It only injects extra names into `all_icons`.
+- **Theme 8 never auto-updates — that is deliberate — and it is the easy one to
+  forget.** After merging to `main` you must click **Check for updates** on theme 8,
+  not theme 12. They sit next to each other in admin and theme 12 is the one you have
+  been clicking all session, so this goes wrong quietly: git is correct, `main` is
+  correct, and the live site is unchanged. Symptom when the sprite is behind is blank
+  tiles, because categories point at `rentman-*` ids the old sprite has no symbols for.
+- **Theme settings do NOT travel with a git update.** Every value in `settings.yml` is
+  stored per theme, so theme 8 keeps its own hero CTA labels and URLs and its own
+  `category_grid_excluded` no matter what code arrives. A giveaway: theme 8's heading
+  read "Rentman MCP Community" while theme 12 read "Rentman Community". After any merge,
+  walk theme 8's settings against theme 12's by hand.
 - **Theme 12's auto-update is not reliable, or not quick.** `1c06f3d` appeared within
   about two minutes; `022f6c1` had still not been pulled 45 minutes later. Treat the
   fast case as the anomaly. After pushing to `develop`, click **Check for updates** on
