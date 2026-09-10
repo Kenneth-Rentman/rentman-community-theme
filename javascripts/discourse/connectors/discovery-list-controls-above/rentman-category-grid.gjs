@@ -39,6 +39,40 @@ function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
 }
 
+// The tile carries the category colour and the glyph sits on top of it, so the
+// glyph needs to be white on dark tiles and ink on pale ones. That could be a
+// second setting to maintain alongside the colour, but it is derivable: only
+// two glyph colours are ever in play, so take whichever contrasts better.
+// Deriving it means the pair can never drift out of sync in admin.
+const INK = "202121";
+
+function channel(v) {
+  const c = v / 255;
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+// WCAG 2.1 relative luminance.
+function luminance(hex) {
+  const n = parseInt(hex, 16);
+  return (
+    0.2126 * channel((n >> 16) & 255) +
+    0.7152 * channel((n >> 8) & 255) +
+    0.0722 * channel(n & 255)
+  );
+}
+
+function contrast(a, b) {
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
+const INK_LUMINANCE = luminance(INK);
+
+function glyphColor(hex) {
+  const tile = luminance(hex);
+  // #fff has a relative luminance of exactly 1.
+  return contrast(tile, 1) >= contrast(tile, INK_LUMINANCE) ? "#fff" : `#${INK}`;
+}
+
 export default class RentmanCategoryGrid extends Component {
   @service site;
   @service router;
@@ -75,14 +109,21 @@ export default class RentmanCategoryGrid extends Component {
         countLabel: `${c.topic_count} ${
           c.topic_count === 1 ? "topic" : "topics"
         }`,
-        // With an icon: neutral grey tile, icon in the category colour.
-        // Without one (Staff, Events): a solid colour chip, because an empty
-        // grey square reads as a failed load.
+        // The category colour fills the TILE, not the glyph. Tinting a 13px
+        // glyph made the colour a foreground needing 3:1 against the grey
+        // tile, which most of the brand palette fails — brand orange at 2.78,
+        // Crew yellow at 1.54. As a tile fill it is a background, the contrast
+        // test moves to glyph-against-tile, and every brand value passes. It
+        // is also what the brand book asks for: product icons sit on a filled
+        // square (p.26).
+        //
+        // A category with no icon still gets the colour chip, since an empty
+        // tile reads as a failed load.
         iconStyle: !isHex(c.color)
           ? null
-          : c.style_type === "icon" && c.icon
-            ? htmlSafe(`color: #${c.color};`)
-            : htmlSafe(`background: #${c.color};`),
+          : htmlSafe(
+              `background: #${c.color}; color: ${glyphColor(c.color)};`
+            ),
       }));
   }
 

@@ -546,19 +546,28 @@ body.navigation-topics {
     text-decoration: none;
   }
 
+  // 26 -> 32. The tile now carries the category colour rather than tinting a
+  // glyph on grey, and a 13px glyph on a coloured ground was both too small to
+  // read and too small to give the colour any presence. Costs ~6px of card
+  // height; the eight-up row still fits.
   &__tile {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: var(--rentman-radius);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--rentman-tile);
+    // Pale tiles sit close to the white card — beige at 1.21:1, Crew yellow at
+    // 1.69 — and without an edge they read as a glyph floating in nothing. A
+    // 10% ink ring defines them and is invisible on the dark tiles, so it
+    // works for any palette we land on rather than only the current one.
+    box-shadow: inset 0 0 0 1px rgba(32, 33, 33, 0.1);
 
     .d-icon {
-      width: 13px;
-      height: 13px;
+      width: 16px;
+      height: 16px;
       color: inherit;
     }
   }
