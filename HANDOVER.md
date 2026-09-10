@@ -94,43 +94,57 @@ https://claude.ai/code/artifact/381760ab-dccd-418a-9f33-2f57aaab9da8
 
 Mockup: https://claude.ai/code/artifact/d3a7c15b-874b-4e09-954a-5adb27fbbbcb
 
+## Decided 2026-09-10
+
+- **Black and white.** All eight tiles `202121`; the glyph goes white automatically, so
+  that is the only value to set. Marketing preferred all-orange and the CX team
+  preferred multi-colour; black won on two non-taste grounds — orange is already
+  load-bearing as the interaction colour in eight places in `common.scss`, and neither
+  monochrome nor orange needs a new hue when a ninth category appears. A single orange
+  tile for Announcements was tried as a compromise and looked wrong.
+- **Icons are Lucide** (`24bc298`), replacing the hand-drawn rectangle set: megaphone /
+  rocket / chart-gantt / warehouse / users / receipt-euro / braces / messages-square.
+  The p.26 rule (rectangles and squares only) held shape at 16px but converged
+  silhouettes — Getting Started, Equipment & Warehouse and Crew all became square
+  clusters, which colour masked and a single-colour tile does not. Accepted trade:
+  Lucide's round caps are softer than the brand's square geometry; the square tile
+  carries the geometric cue instead. Hand-drawn set recoverable from `fb6c601`.
+  Comparison: https://claude.ai/code/artifact/51635e67-f347-4e32-b613-f09e5960a2db
+
 ## Open
 
-- Update theme 8 from the Discourse admin to pull `030cd93`.
-- Announcements is still orange — see the note above about orange being the
-  interaction colour.
-- Category `position` values collide, so the grid order isn't quite intentional.
-- Set `category_grid_excluded` to `staff`.
-- **Three options are with Marketing as of 2026-09-10**: multi-colour (Variant B),
-  all-orange, and all-black. Colours are admin config, so switching is minutes.
-  Monochrome and all-orange both sidestep the palette argument entirely and keep
-  orange as the pure interaction accent, which the house rule above wants — but see
-  the icon note, which they make worse.
-- **Icons are now Lucide** (`24bc298`), replacing the hand-drawn rectangle set. The
-  p.26 rule (rectangles and squares only) held shape at 16px but **converged
-  silhouettes** — Getting Started, Equipment & Warehouse and Crew all became square
-  clusters, which colour masked and a single-colour tile does not. Lucide is already
-  drawn to our spec (24px grid, 2px stroke, currentColor, no fills) by one hand.
-  Mapping: megaphone / rocket / chart-gantt / warehouse / users / receipt-euro /
-  braces / messages-square. Symbol ids unchanged, so admin needed no reconfiguring.
-  **Accepted trade:** Lucide uses round caps and joins, so the glyphs are softer than
-  the brand's square geometry. The square tile carries the geometric cue instead. The
-  hand-drawn set is recoverable from `fb6c601`.
-  Comparison page: https://claude.ai/code/artifact/51635e67-f347-4e32-b613-f09e5960a2db
-- **Projects may still be on the Font Awesome `cube`** rather than `rentman-projects`.
-  Check every category points at its `rentman-*` id, or the set is being judged with a
-  foreign icon in it.
-- **Projects on `#D44200` is provisional** — p.22 says shades should never be main
-  colours, though it lists backgrounds as their use, which this is. Wants a brand nod.
+Next action first.
+
+- **Update theme 8 from admin to pull `d8f9487`.** Until then the live theme has no
+  sprite and every category renders a blank tile for members.
+- **Set all eight category colours to `202121`.**
+- **Verify the sidebar initializer actually runs**: in the console,
+  `!!document.getElementById("rentman-sidebar-tiles")`. The CSS fallback makes an
+  all-black palette look correct either way, so a `false` here is a latent problem
+  that only surfaces on a pale tile.
+- **Apply the eight "About this category" descriptions.** Drafted, never applied. First
+  paragraph becomes the tile description, so keep each to one paragraph.
+- **Retire or migrate Q&A, Feedback and Discussions.** Still live alongside the new
+  eight, so the IA currently shows eleven categories with three legacy ones. Q&A has no
+  home in the eight — decide whether it survives.
+- **Category `position` values collide**, so the grid order isn't quite intentional.
+- **Set `category_grid_excluded` to `staff`.**
 - **Topic page** — never looked at.
-- **Mobile** — two fixes, no systematic review. Note that Discourse's mobile view is
-  user-agent based (`body.mobile-view`), so the browser pane's viewport emulation
-  does *not* trigger it. Mobile bugs have to be checked on a real device.
+- **Mobile** — two fixes, no systematic review. Discourse's mobile view is user-agent
+  based (`body.mobile-view`), so viewport emulation does *not* trigger it. Mobile bugs
+  have to be checked on a real device.
+- **Category icons elsewhere** — topic-list badges and category pages still use
+  Discourse's glyph tint. Same latent contrast problem as the sidebar had, smaller
+  surfaces. Harmless while the palette is black; revisit if it ever isn't.
 - **Events widget** — deferred until there are real events to pull.
 - **SSO** — DiscourseConnect is exclusive, OIDC is additive; existing accounts link by
-  verified email. Dev meeting was the driver here.
+  verified email.
 - **Dark mode** — broken, but inert: no dark scheme is offered to members.
 - **Where the 8-category IA finally lives** — mcp-beta or a fresh instance. Still open.
+- **`HANDOVER.md` is now tracked in git.** It began untracked and I picked it up with
+  `git add -A` without deciding to. It is harmless — Discourse ignores it — but if the
+  intent was to keep it out of the repo, `git rm --cached HANDOVER.md` and add it to
+  `.gitignore`.
 
 ## Traps worth remembering
 
