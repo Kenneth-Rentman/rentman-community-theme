@@ -11,7 +11,6 @@
 // different glyph colour on the homepage than in the sidebar.
 
 export const INK = "202121";
-export const ORANGE = "ff5e1d";
 
 export function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
@@ -56,27 +55,14 @@ const GRAPHICS_THRESHOLD = 3;
 // A fallback is always safe: white and ink are equal at 4.09:1, so whichever
 // of the two is better is never below that. There is no colour where both
 // fail, which is why this needs no third option.
+// Tried 2026-09-11 and rejected: an `accentGlyphColor` behind a
+// `tile_glyph_accent` setting drew the glyphs in brand orange on the black
+// tiles (5.28:1, perfectly legible). It read as eight "active" states rather
+// than as brand presence, because orange means interactive everywhere else in
+// this theme. Recoverable from c7a6408 if anyone wants to look again.
+//
 export function glyphColor(hex) {
   const onWhite = contrast(luminance(hex), 1);
   // #fff has a relative luminance of exactly 1.
   return onWhite >= GRAPHICS_THRESHOLD ? "#fff" : `#${INK}`;
-}
-
-// Brand orange as the glyph, where it is legible on that tile.
-//
-// The point of this is small-area orange: a mark inside a black chip rather
-// than an orange chip. On ink it is 5.28:1, comfortably past the 3:1 a
-// graphical object needs. On the pale brand values it is not — beige is 1.44
-// and Crew yellow 1.58 — so those fall back to the computed white/ink pair
-// rather than shipping an illegible glyph to satisfy a preference.
-//
-// Behind the `tile_glyph_accent` setting so the two versions can be compared
-// in admin without a deploy.
-const ORANGE_LUMINANCE = luminance(ORANGE);
-
-export function accentGlyphColor(hex) {
-  const tile = luminance(hex);
-  return contrast(tile, ORANGE_LUMINANCE) >= GRAPHICS_THRESHOLD
-    ? `#${ORANGE}`
-    : glyphColor(hex);
 }

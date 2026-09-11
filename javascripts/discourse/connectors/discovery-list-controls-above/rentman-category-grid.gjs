@@ -18,11 +18,7 @@ import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
 // Shared with the sidebar mini-tiles so the two surfaces cannot derive a
 // different glyph colour for the same category.
-import {
-  accentGlyphColor,
-  glyphColor,
-  isHex,
-} from "../../lib/rentman-tile-colors";
+import { glyphColor, isHex } from "../../lib/rentman-tile-colors";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 // Back to four, but keeping the horizontal card. Eight in one row fits, and
@@ -31,11 +27,6 @@ const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 // count: horizontal 4x2 is ~128px against ~230px for the old stacked 4x2,
 // with room for every name on one line.
 const MAX_PER_ROW = 4;
-
-// Brand orange glyphs instead of white/ink, from the theme setting. Small-area
-// orange: a mark inside the chip rather than an orange chip, which is what
-// looked wrong when a whole tile went orange.
-const GLYPH = settings.tile_glyph_accent ? accentGlyphColor : glyphColor;
 
 // Categories to keep out of the grid, from the theme setting. Discourse hands
 // list settings back as a pipe-delimited string on some versions and an array
@@ -96,7 +87,7 @@ export default class RentmanCategoryGrid extends Component {
         iconStyle: !isHex(c.color)
           ? null
           : htmlSafe(
-              `background: #${c.color}; color: ${GLYPH(c.color)};`
+              `background: #${c.color}; color: ${glyphColor(c.color)};`
             ),
       }));
   }

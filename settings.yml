@@ -38,7 +38,3 @@ category_grid_excluded:
   default: ""
   allow_any: true
   choices:
-
-tile_glyph_accent:
-  type: bool
-  default: false

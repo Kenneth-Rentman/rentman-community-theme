@@ -19,15 +19,7 @@
 // sets `color` on the PREFIX SPAN, so setting `color` on the child
 // `.prefix-icon` wins on the cascade without needing !important.
 
-import {
-  accentGlyphColor,
-  glyphColor,
-  isHex,
-} from "../lib/rentman-tile-colors";
-
-// Mirrors the grid, so the two surfaces never disagree about a category.
-const GLYPH = () =>
-  settings.tile_glyph_accent ? accentGlyphColor : glyphColor;
+import { glyphColor, isHex } from "../lib/rentman-tile-colors";
 
 const STYLE_ID = "rentman-sidebar-tiles";
 
@@ -45,13 +37,13 @@ function buildCss(categories) {
     .map((c) => {
       const sel = `.sidebar-section[data-section-name="categories"] .sidebar-section-link[data-link-name="${c.slug}"] .sidebar-section-link-prefix.icon`;
       return (
-        `${sel}{background:#${c.color};color:${GLYPH()(c.color)}}` +
+        `${sel}{background:#${c.color};color:${glyphColor(c.color)}}` +
         // Only the glyph. NOT the lock badge on restricted categories: it is
         // positioned to overhang the tile's top-right corner onto the sidebar
         // ground, so it needs to contrast with the sidebar, not with the tile.
         // Giving it the glyph colour turned it white on a black tile, i.e.
         // invisible. Discourse's own --d-sidebar-link-color is correct here.
-        `${sel} .prefix-icon{color:${GLYPH()(c.color)}}`
+        `${sel} .prefix-icon{color:${glyphColor(c.color)}}`
       );
     })
     .join("");
