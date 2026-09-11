@@ -345,12 +345,22 @@ body {
   text-align: left;
 }
 
-// No orange full stop on the banner headline. Discourse nests
-// .welcome-banner__subheader INSIDE .welcome-banner__title, so an ::after on
-// the title lands below the subtitle rather than after the headline — and the
-// headline itself is a bare text node with a block sibling, which CSS can't
-// attach to. The motif still runs on section headings, where the element is a
-// plain heading.
+// The orange full stop on the banner headline — the brand's signature move
+// (book p.18), matching the motif already running on section headings.
+//
+// It could not be done in CSS alone, and the reason is worth keeping: Discourse
+// nests .welcome-banner__subheader INSIDE .welcome-banner__title, so an ::after
+// on the title lands below the subtitle, and the headline itself is an
+// anonymous block CSS cannot attach to. The span this colours is inserted by
+// the rentman-hero-dot api-initializer, immediately before the subheader, which
+// is why it sits at the end of the headline and follows the last word when the
+// heading wraps.
+//
+// Do not replace this with `.welcome-banner__title::after` — that is the thing
+// that does not work.
+.rm-hero-dot {
+  color: var(--rentman-orange);
+}
 
 
 .welcome-banner__subheader {
