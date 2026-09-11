@@ -15,6 +15,21 @@
 :root {
   // Brand swatches, lifted from rentman.io
   --rentman-orange: #ff5e1d;
+  // An orange SURFACE, not a text orange. Read the note further down that says
+  // not to reintroduce a darkened orange: that note is about using orange as a
+  // text colour, which is still forbidden here — orange text stays out.
+  //
+  // This is the inverse case, which the system did not previously have: a
+  // surface filled with orange carrying a white label. White on #ff5e1d is
+  // 3.06:1, fine for a shape at the 3:1 threshold and a fail for the 4.5 text
+  // needs. #d44200 is the brand's own dark orange (book p.22) and takes white
+  // text at 4.59:1, so it keeps brand's white-on-orange and makes it legal.
+  //
+  // Used ONLY on the hero CTA. Not on --d-button-primary-bg-color: those stay
+  // ink to match New Topic and support.rentman.io's "Submit a request". The
+  // hero is the page's one marketing surface; UI controls are not.
+  --rentman-orange-surface: #d44200;
+  --rentman-orange-surface-hover: #a83500; // white on it, 6.62:1
   --rentman-orange-soft: #ffbfa5;
   --rentman-orange-muted: #ffdfd2;
   --rentman-beige: #eee9e1;
@@ -105,6 +120,10 @@
   // That is why there is no darkened "text orange" here any more. Earlier
   // versions had one; it was working around a problem this system doesn't
   // have. Don't reintroduce it.
+  //
+  // 2026-09-11: --rentman-orange-surface above is NOT that. It is a background
+  // that carries a white label, not a colour applied to text. Orange text is
+  // still out. If you find yourself wanting orange *type*, this note stands.
   // -------------------------------------------------------------------------
 
   // Discourse colours links with
@@ -340,6 +359,40 @@ body {
   margin: 0;
   // Left-aligned text needs a measure; the full column is far too wide.
   max-width: 58ch;
+}
+
+// --- Activity indicators ---------------------------------------------------
+//
+// Orange as the colour of "there is something new here". This is the only
+// place orange appears at rest in the body of the page, and it earns it by
+// meaning something rather than decorating.
+//
+// It is also a fix. Discourse routes both indicators through
+// --tertiary-med-or-tertiary, which in this scheme resolves to
+// rgb(255, 175, 142) — a washed-out peach that puts the new-topic dot at
+// 1.78:1 against the white page and the unread count at 1.78:1 against its
+// own pill. Both were effectively invisible.
+
+// The new-topic / new-replies dot. A filled shape, not text, so the 3:1
+// graphical-object threshold applies and brand orange clears it at 3.06:1.
+.badge-notification.new-topic::before,
+.badge-notification.new-replies::before {
+  background: var(--rentman-orange);
+}
+
+// The unread-posts pill carries a number, so it is text at 4.5:1 and takes
+// the dark shade — white on it is 4.59:1 where white on brand orange would
+// be 3.06 and fail.
+.badge-notification.unread-posts {
+  background-color: var(--rentman-orange-surface);
+  color: #fff;
+}
+
+// Same signal in the sidebar, so a category with unread activity reads the
+// same way in both places. Discourse ships this as a suffix icon coloured
+// from --d-sidebar-suffix-color.
+.sidebar-section-link-suffix.icon.unread svg {
+  color: var(--rentman-orange);
 }
 
 // --- Topic list ------------------------------------------------------------
@@ -796,13 +849,19 @@ body.navigation-topics {
     text-decoration: none;
   }
 
-  // Ink surface, white text — 15.9:1. Same primary treatment as New Topic and
-  // the Support Center's "Submit a request", rather than a second primary
-  // style just for the hero.
+  // Orange surface, white text — 4.59:1. The page's one deliberate block of
+  // orange, on the page's one primary action, which is what the brand reserves
+  // orange for. It was ink; with eight black category tiles below it the top of
+  // the page had no brand colour in it at all except the logo.
+  //
+  // #d44200 rather than #ff5e1d because this label is TEXT: white on brand
+  // orange is 3.06:1 and fails the 4.5 threshold. The dark shade keeps brand's
+  // white-on-orange treatment and makes it legal.
+  //
   // :visited included so this beats Discourse's a:visited at (0,1,1).
   &__primary,
   &__primary:visited {
-    background: var(--rentman-ink);
+    background: var(--rentman-orange-surface);
     color: #fff;
     font-size: 15px;
     font-weight: 600;
@@ -811,7 +870,7 @@ body.navigation-topics {
     transition: background 0.15s ease;
 
     &:hover {
-      background: var(--rentman-ink-hover);
+      background: var(--rentman-orange-surface-hover);
       color: #fff;
     }
   }
