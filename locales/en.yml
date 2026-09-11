@@ -11,3 +11,4 @@ en:
       hero_secondary_cta_label: "Secondary hero button label. Leave empty to show only the primary."
       hero_secondary_cta_url: "Where the secondary hero button goes."
       category_grid_excluded: "Categories to leave out of the homepage grid. Use the category slug (e.g. staff) or its numeric id. Does not affect the sidebar, the Categories page, or who can read the category — it only hides the tile."
+      tile_glyph_accent: "Draw the category icons in brand orange instead of white or ink. Applies to the homepage grid and the sidebar. Tiles too pale for orange to be legible keep the automatic colour, so this never produces an unreadable icon."

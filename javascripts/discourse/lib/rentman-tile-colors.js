@@ -11,6 +11,7 @@
 // different glyph colour on the homepage than in the sidebar.
 
 export const INK = "202121";
+export const ORANGE = "ff5e1d";
 
 export function isHex(color) {
   return !!color && /^[0-9a-f]{6}$/i.test(color);
@@ -59,4 +60,23 @@ export function glyphColor(hex) {
   const onWhite = contrast(luminance(hex), 1);
   // #fff has a relative luminance of exactly 1.
   return onWhite >= GRAPHICS_THRESHOLD ? "#fff" : `#${INK}`;
+}
+
+// Brand orange as the glyph, where it is legible on that tile.
+//
+// The point of this is small-area orange: a mark inside a black chip rather
+// than an orange chip. On ink it is 5.28:1, comfortably past the 3:1 a
+// graphical object needs. On the pale brand values it is not — beige is 1.44
+// and Crew yellow 1.58 — so those fall back to the computed white/ink pair
+// rather than shipping an illegible glyph to satisfy a preference.
+//
+// Behind the `tile_glyph_accent` setting so the two versions can be compared
+// in admin without a deploy.
+const ORANGE_LUMINANCE = luminance(ORANGE);
+
+export function accentGlyphColor(hex) {
+  const tile = luminance(hex);
+  return contrast(tile, ORANGE_LUMINANCE) >= GRAPHICS_THRESHOLD
+    ? `#${ORANGE}`
+    : glyphColor(hex);
 }
