@@ -111,6 +111,23 @@ Mockup: https://claude.ai/code/artifact/d3a7c15b-874b-4e09-954a-5adb27fbbbcb
   carries the geometric cue instead. Hand-drawn set recoverable from `fb6c601`.
   Comparison: https://claude.ai/code/artifact/51635e67-f347-4e32-b613-f09e5960a2db
 
+- **Orange accents: three tried, three rejected (2026-09-11).** The page reads very
+  black and the team wanted brand colour back in it. Rejected, in order: a filled
+  orange hero CTA (`0b068f6` — heavy and muddy as a large block, and `#d44200` is
+  duller than the orange people expect); brand-orange glyphs inside the black tiles
+  (`ef97c4c` — legible at 5.28:1 but eight orange marks read as eight *active* states,
+  since orange means interactive everywhere else here); the orange full stop on the
+  hero headline (`7d89314` — worked, but the headline's text node has trailing
+  whitespace so the period floated a word-space off the last word).
+  The pattern across all three: **static orange on a surface competes with the black
+  rather than balancing it.** What was never tried is orange that appears only on
+  interaction — a tile that flips orange on hover cannot affect how the page reads at
+  rest. Worth revisiting once the community has real content.
+- **What survived is the activity indicators** (`e1f34f7`), and they were a bug fix
+  rather than a decoration: Discourse routes the new-topic dot and the unread-posts
+  pill through `--tertiary-med-or-tertiary`, which resolves to `rgb(255,175,142)` in
+  this scheme — both sat at 1.78:1 and were effectively invisible.
+
 ## Open
 
 Next action first.
@@ -122,8 +139,6 @@ Next action first.
   `!!document.getElementById("rentman-sidebar-tiles")`. The CSS fallback makes an
   all-black palette look correct either way, so a `false` here is a latent problem
   that only surfaces on a pale tile.
-- **Apply the eight "About this category" descriptions.** Drafted, never applied. First
-  paragraph becomes the tile description, so keep each to one paragraph.
 - **Retire or migrate Q&A, Feedback and Discussions.** Still live alongside the new
   eight, so the IA currently shows eleven categories with three legacy ones. Q&A has no
   home in the eight — decide whether it survives.
@@ -190,10 +205,11 @@ Next action first.
   correct, and the live site is unchanged. Symptom when the sprite is behind is blank
   tiles, because categories point at `rentman-*` ids the old sprite has no symbols for.
 - **Theme settings do NOT travel with a git update.** Every value in `settings.yml` is
-  stored per theme, so theme 8 keeps its own hero CTA labels and URLs and its own
-  `category_grid_excluded` no matter what code arrives. A giveaway: theme 8's heading
-  read "Rentman MCP Community" while theme 12 read "Rentman Community". After any merge,
-  walk theme 8's settings against theme 12's by hand.
+  stored per theme, so theme 8 keeps its own `category_grid_excluded` and its own hero
+  CTA labels and URLs no matter what code arrives. After any merge, walk theme 8's
+  settings against theme 12's by hand. (The banner heading is NOT an example of this —
+  it is a core i18n string built from the site title, which is a site setting shared by
+  both themes.)
 - **Theme 12's auto-update is not reliable, or not quick.** `1c06f3d` appeared within
   about two minutes; `022f6c1` had still not been pulled 45 minutes later. Treat the
   fast case as the anomaly. After pushing to `develop`, click **Check for updates** on
