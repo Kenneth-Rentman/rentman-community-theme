@@ -25,9 +25,10 @@
   // needs. #d44200 is the brand's own dark orange (book p.22) and takes white
   // text at 4.59:1, so it keeps brand's white-on-orange and makes it legal.
   //
-  // Used ONLY on the hero CTA. Not on --d-button-primary-bg-color: those stay
-  // ink to match New Topic and support.rentman.io's "Submit a request". The
-  // hero is the page's one marketing surface; UI controls are not.
+  // Used only where an orange surface carries a label — currently just the
+  // unread-posts count pill. NOT on --d-button-primary-bg-color: primary
+  // buttons stay ink to match support.rentman.io's "Submit a request". The
+  // hero CTA was orange briefly and reverted; see the note at .rm-hero-cta.
   --rentman-orange-surface: #d44200;
   --rentman-orange-surface-hover: #a83500; // white on it, 6.62:1
   --rentman-orange-soft: #ffbfa5;
@@ -849,19 +850,20 @@ body.navigation-topics {
     text-decoration: none;
   }
 
-  // Orange surface, white text — 4.59:1. The page's one deliberate block of
-  // orange, on the page's one primary action, which is what the brand reserves
-  // orange for. It was ink; with eight black category tiles below it the top of
-  // the page had no brand colour in it at all except the logo.
+  // Ink surface, white text — 15.9:1. Same primary treatment as New Topic and
+  // the Support Center's "Submit a request", rather than a second primary
+  // style just for the hero.
   //
-  // #d44200 rather than #ff5e1d because this label is TEXT: white on brand
-  // orange is 3.06:1 and fails the 4.5 threshold. The dark shade keeps brand's
-  // white-on-orange treatment and makes it legal.
+  // Tried orange (#d44200, white at 4.59:1) on 2026-09-11 and reverted: as a
+  // large filled block it read heavy and muddy next to the black tiles, and
+  // the dark shade is duller than the brand orange people expect. Orange is
+  // better spent on small marks than on a big surface. Don't retry it without
+  // looking at the whole grid.
   //
   // :visited included so this beats Discourse's a:visited at (0,1,1).
   &__primary,
   &__primary:visited {
-    background: var(--rentman-orange-surface);
+    background: var(--rentman-ink);
     color: #fff;
     font-size: 15px;
     font-weight: 600;
@@ -870,7 +872,7 @@ body.navigation-topics {
     transition: background 0.15s ease;
 
     &:hover {
-      background: var(--rentman-orange-surface-hover);
+      background: var(--rentman-ink-hover);
       color: #fff;
     }
   }
