@@ -748,6 +748,84 @@ body.navigation-topics {
 }
 
 // ---------------------------------------------------------------------------
+// Discovery right rail — upcoming events
+//
+// Rendered by the rentman-events connector into the Right Sidebar Blocks
+// component's `above-right-sidebar-blocks` outlet, so it sits above the
+// leaderboard. Deliberately matches that block's typography rather than
+// introducing a second rail style: same 15/600 section label with the orange
+// full stop, same hairline separators, no card container.
+// ---------------------------------------------------------------------------
+
+.rm-events {
+  margin: 0 0 24px;
+
+  &__title {
+    font-family: var(--rentman-font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rentman-ink);
+    margin: 0 0 8px;
+
+    // The section-heading motif, as on "Leaderboard." — this is a plain
+    // heading, so unlike the banner it can carry the stop in CSS.
+    &::after {
+      content: ".";
+      color: var(--rentman-orange);
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item + &__item {
+    border-top: 1px solid var(--rentman-hairline);
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 0;
+
+    &:hover {
+      text-decoration: none;
+
+      .rm-events__name {
+        color: var(--rentman-orange);
+      }
+    }
+  }
+
+  // Date first and quiet: the title is what people scan for, the date is
+  // what they check second.
+  &__when {
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--rentman-muted-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Two lines maximum. Event titles are topic titles, which are not written
+  // to fit a 200px rail, and an unbounded title pushes the leaderboard down
+  // the page.
+  &__name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--rentman-ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.15s ease;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Discovery right rail — leaderboard
 //
 // Restyles discourse-gamification's `minimal-gamification-leaderboard`, which

@@ -11,3 +11,4 @@ en:
       hero_secondary_cta_label: "Secondary hero button label. Leave empty to show only the primary."
       hero_secondary_cta_url: "Where the secondary hero button goes."
       category_grid_excluded: "Categories to leave out of the homepage grid. Use the category slug (e.g. staff) or its numeric id. Does not affect the sidebar, the Categories page, or who can read the category — it only hides the tile."
+      events_block_limit: "How many upcoming events to list in the right rail. The rail is narrow and sits above the leaderboard, so this is deliberately capped low."
