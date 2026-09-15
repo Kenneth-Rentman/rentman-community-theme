@@ -45,6 +45,17 @@ renders a blank tile for members. Update theme 8 as the next action.
 - **Leaderboard** — colour and type only. Geometry overrides were tried and reverted;
   the plugin positions the podium with transforms and it breaks if you touch sizes.
 - **Right rail** — hidden on mobile.
+- **Events block** — `rentman-events.gjs`, top of the right rail above the leaderboard.
+  Reads discourse-events at `GET /discourse-post-event/events.json` (that spelling is
+  the plugin's deliberate public API path, not a legacy accident), filtered to upcoming
+  with `after`/`order`/`include_ongoing`. Renders into the Right Sidebar Blocks
+  component's `above-right-sidebar-blocks` outlet, so the rail's own `blocks` setting
+  does not need to know we exist. Count is the `events_block_limit` setting.
+  Two API traps it handles: `name` is optional and falls back to `post.topic.title`;
+  all-day events serialise `starts_at` as a bare `"YYYY-MM-DD"`, which `new Date()`
+  reads as UTC midnight and renders a day early west of Greenwich, so those are built
+  from the parts. Renders nothing at all when the list is empty or the fetch fails —
+  events are scoped to what the user can read, so that is a normal state, not an error.
 
 ## House rules the styling follows
 
@@ -151,7 +162,6 @@ Next action first.
 - **Category icons elsewhere** — topic-list badges and category pages still use
   Discourse's glyph tint. Same latent contrast problem as the sidebar had, smaller
   surfaces. Harmless while the palette is black; revisit if it ever isn't.
-- **Events widget** — deferred until there are real events to pull.
 - **SSO** — DiscourseConnect is exclusive, OIDC is additive; existing accounts link by
   verified email.
 - **Dark mode** — broken, but inert: no dark scheme is offered to members.
