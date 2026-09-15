@@ -1302,12 +1302,57 @@ body.navigation-topics {
 // .mobile-view from the user agent, which a narrow desktop window won't get.
 // ---------------------------------------------------------------------------
 
+// Events survives on small screens; the leaderboard does not.
+//
+// The original reasoning — a phone user scrolling past the whole podium before
+// reaching a topic — holds for ten ranked rows and not for three dated lines,
+// and events are the most time-sensitive thing on the page. So the rail is no
+// longer hidden wholesale.
+//
+// Two different mechanisms, because the two "small" cases are not the same:
+//
+//   Real phone (.mobile-view, user-agent based) — the rail component returns
+//   early and is not in the DOM at all, so there is nothing here to show or
+//   hide. Events reaches the page through the before-list-area mount instead.
+//
+//   Narrow desktop window (<768px, no .mobile-view) — the rail IS rendered.
+//   Hide only the blocks inside it, leaving the events section, which is
+//   rendered by the outlet above them.
 .mobile-view .tc-right-sidebar {
   display: none;
 }
 
 @media (max-width: 767px) {
-  .tc-right-sidebar {
+  .tc-right-sidebar .rs-component {
     display: none;
+  }
+}
+
+// Mobile mount, above the topic list. Full width and a rule beneath it, since
+// it no longer has a rail column to sit in.
+.rm-events-mobile {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rentman-hairline);
+
+  .rm-events {
+    margin-bottom: 12px;
+  }
+
+  // The two-line clamp exists for a 200px rail. Full width needs no clamp.
+  .rm-events__name {
+    -webkit-line-clamp: none;
+    display: block;
+  }
+
+  // Date and title fit on one line at this width.
+  .rm-events__link {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .rm-events__when {
+    flex: 0 0 auto;
   }
 }
