@@ -14,12 +14,16 @@ Two themes on **mcp-beta.rentman.io**:
 Workflow: push to `develop`, look at it on theme 12, and when it's approved merge to
 `main` and update theme 8 from the admin.
 
-**Unmerged:** nothing. `main` and `develop` are both at `d8f9487` (merged and pushed
-2026-09-10). Working tree clean.
+**Unmerged:** nothing. `main` and `develop` are both at `dff4bde` (merged and pushed
+2026-09-15). Working tree clean.
 
-**Theme 8 has NOT been updated from admin yet.** Until it is, the live theme still
-lacks the sprite, so every category — all eight now point at a `rentman-*` icon —
-renders a blank tile for members. Update theme 8 as the next action.
+**Theme 8 needs updating from admin** to pull `dff4bde`. Click **Check for updates** on
+**Rentman Community** (theme 8), NOT on the DEV theme — see the trap below, this has
+gone wrong before. It brings the Events block and the activity-indicator contrast fix
+to the live site.
+
+Also check theme 8's own settings afterwards: `category_grid_excluded` and the new
+`events_block_limit` are per-theme and do not arrive with the code.
 
 ## What's built
 
