@@ -38,6 +38,13 @@
   --rentman-beige-muted: #f8f6f3;
   --rentman-beige-dark: #d9d4cd;
   --rentman-ink: var(--primary);
+  // A fixed dark surface that does NOT follow the scheme. The footer is
+  // designed dark-on-dark with white text in both light and dark, ported that
+  // way from the Support Center. It used to read --rentman-ink, which was
+  // #202121 — correct by accident, until --rentman-ink began flipping with the
+  // scheme and took the footer beige underneath its white text (1.08:1).
+  // Anything that is deliberately dark in both schemes belongs here, not on ink.
+  --rentman-surface-dark: #202121;
   --rentman-black: #080808;
   --rentman-green: #2aba67;
   --rentman-yellow: #fcbd01;
@@ -560,24 +567,15 @@ body.navigation-topics {
     // yellow are within 1.7:1 of the sidebar ground and need an edge.
     box-shadow: inset 0 0 0 1px rgba(var(--primary-rgb), 0.1);
 
-    // Fallback fill, so this degrades to "right for dark tiles" instead of to
-    // "inverted" when the rentman-sidebar-tiles stylesheet is missing.
-    // Discourse sets the category colour inline as `color` on this span, so
-    // currentColor picks it up as the tile fill for free; the initializer then
-    // overrides both with the exact computed pair, and wins on specificity
-    // because its selector carries the [data-link-name] as well.
-    //
-    // Without this the geometry applied and the fill did not, which is exactly
-    // the inversion reported on the black-and-white palette.
-    background: currentColor;
+    // Same rule as the grid tile: the inverse of the page, in both schemes.
+    // !important because Discourse sets the category colour inline as `color`
+    // on this span and inline beats a stylesheet rule.
+    background: var(--primary) !important;
 
     .prefix-icon {
       width: 12px;
       height: 12px;
-      // White is right for every dark tile, which is the whole palette under
-      // the black-and-white direction. Pale tiles need ink and only the
-      // initializer can know that, so it overrides this.
-      color: #fff;
+      color: var(--secondary) !important;
     }
 
     // The lock on a restricted category is left to Discourse, deliberately.
@@ -664,7 +662,15 @@ body.navigation-topics {
   // glyph on grey, and a 13px glyph on a coloured ground was both too small to
   // read and too small to give the colour any presence. Costs ~6px of card
   // height; the eight-up row still fits.
+  // The tile is always the inverse of the page: ink chip on a light page,
+  // beige chip on a dark one. The category colour from admin is deliberately
+  // unused — it is a single value shared by both schemes, and #202121 is the
+  // dark page background, so colour-driven tiles rendered invisible in dark
+  // mode. Doing it here rather than in JS also removed the whole glyph-colour
+  // computation; see the note at the top of rentman-category-grid.gjs.
   &__tile {
+    background: var(--primary);
+    color: var(--secondary);
     width: 32px;
     height: 32px;
     border-radius: var(--rentman-radius);
@@ -672,7 +678,6 @@ body.navigation-topics {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rentman-tile);
     // Pale tiles sit close to the white card — beige at 1.21:1, Crew yellow at
     // 1.69 — and without an edge they read as a glyph floating in nothing. A
     // 10% ink ring defines them and is invisible on the dark tiles, so it
@@ -1036,7 +1041,7 @@ body.navigation-topics {
 // ---------------------------------------------------------------------------
 
 .rm-footer {
-  background: var(--rentman-ink);
+  background: var(--rentman-surface-dark);
   color: rgba(255, 255, 255, 0.75);
   font-family: var(--rentman-font-body);
   padding: 60px 0 0;

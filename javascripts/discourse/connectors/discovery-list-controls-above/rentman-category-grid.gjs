@@ -1,9 +1,18 @@
 // Category grid above the topic list, per the IA doc's eight flat categories.
 //
-// Renders from site.categories — real names, real counts, and the icon and
-// colour each category already carries. Discourse has native `icon`, `emoji`
-// and `style_type` fields per category; nothing here needs a theme setting
-// mapping slugs to icons.
+// Renders from site.categories — real names, real counts, and the icon each
+// category carries. Discourse has native `icon`, `emoji` and `style_type`
+// fields per category; nothing here needs a theme setting mapping slugs to
+// icons.
+//
+// The category COLOUR is deliberately ignored. The tile is always the inverse
+// of the page — ink on light, beige on dark — which is handled entirely in
+// CSS. This replaced a system that read each category's colour and computed a
+// readable glyph for it; that machinery existed to make arbitrary colours
+// legible, and every category is now the same colour. It also could not
+// survive dark mode: the admin colour is a single value shared by both
+// schemes, and #202121 is the dark page background, so tiles rendered
+// invisible. See common.scss at .rm-cat__tile.
 //
 // Rendered into `discovery-list-controls-above`, i.e. ABOVE the Latest /
 // Categories tab bar — not `discovery-above`, which sits between the tabs and
@@ -14,11 +23,7 @@
 
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
-import { htmlSafe } from "@ember/template";
 import dIcon from "discourse/helpers/d-icon";
-// Shared with the sidebar mini-tiles so the two surfaces cannot derive a
-// different glyph colour for the same category.
-import { glyphColor, isHex } from "../../lib/rentman-tile-colors";
 
 const SHOW_ON = ["discovery.latest", "discovery.top", "discovery.hot"];
 // Back to four, but keeping the horizontal card. Eight in one row fits, and
@@ -74,21 +79,6 @@ export default class RentmanCategoryGrid extends Component {
         countLabel: `${c.topic_count} ${
           c.topic_count === 1 ? "topic" : "topics"
         }`,
-        // The category colour fills the TILE, not the glyph. Tinting a 13px
-        // glyph made the colour a foreground needing 3:1 against the grey
-        // tile, which most of the brand palette fails — brand orange at 2.78,
-        // Crew yellow at 1.54. As a tile fill it is a background, the contrast
-        // test moves to glyph-against-tile, and every brand value passes. It
-        // is also what the brand book asks for: product icons sit on a filled
-        // square (p.26).
-        //
-        // A category with no icon still gets the colour chip, since an empty
-        // tile reads as a failed load.
-        iconStyle: !isHex(c.color)
-          ? null
-          : htmlSafe(
-              `background: #${c.color}; color: ${glyphColor(c.color)};`
-            ),
       }));
   }
 
@@ -105,7 +95,7 @@ export default class RentmanCategoryGrid extends Component {
         <div class="rm-cats__grid" data-columns={{this.columns}}>
           {{#each this.categories as |c|}}
             <a class="rm-cat" href="/c/{{c.slug}}/{{c.id}}">
-              <span class="rm-cat__tile" style={{c.iconStyle}} aria-hidden="true">
+              <span class="rm-cat__tile" aria-hidden="true">
                 {{#if c.icon}}{{dIcon c.icon}}{{/if}}
               </span>
               <span class="rm-cat__text">
