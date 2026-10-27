@@ -17,16 +17,24 @@ Workflow: push to `develop`, look at it on theme 12, and when it's approved merg
 **Unmerged:** nothing. `main` and `develop` are both at `2938ed9` (merged and pushed
 2026-10-27). Working tree clean.
 
-**Theme 8 needs updating from admin** — click **Check for updates** on **Rentman
-Community** (theme 8), NOT the DEV theme. That brings dark mode, the mobile Events
-block, and the tile/footer work live, and also writes `eae8e6` into theme 8's own
-"Rentman Dark" palette from `about.json`, so its colours come good without touching
-admin.
+**Dark mode is live.** Theme 8 carries the dark scheme, so members get it
+automatically when their OS asks for it, and the light/dark toggle is on
+(`interface_color_selector: header`).
 
-**Dark mode is NOT yet reachable by members** and will not be until a dark colour
-scheme is assigned to theme 8. Do that only AFTER the update above: the moment it is
-assigned, everyone whose OS is in dark mode gets it, with no opt-in
-(`dark_elements_media_query` returns `(prefers-color-scheme: dark)`).
+**Mode resolution is cookie -> account preference -> OS.** Every account starts on
+AUTO (`user_options.interface_color_mode` defaults to `1`; `2` is light, `3` is dark).
+The toggle writes a `forced_color_mode` cookie, which outranks the account setting and
+is per browser and per device — a member who picks light on a laptop still gets AUTO
+on their phone. That is normal, not a bug.
+
+**There is NO setting to make light the default.** All 1,528 site settings were
+checked: no `default_interface_color_mode`, no `default_color_scheme`. The default is
+baked into the database schema. The only supported ways to avoid OS-following are to
+accept AUTO or to unassign the dark scheme entirely — and unassigning also removes
+dark from the toggle, since `forced_dark_mode?` returns false when
+`dark_scheme_id == -1`. Seeding the cookie from JS was considered and rejected: the
+cookie is read server-side, so a dark-OS visitor would get a dark first paint and
+light only on the next navigation.
 
 ## What's built
 
