@@ -14,16 +14,19 @@ Two themes on **mcp-beta.rentman.io**:
 Workflow: push to `develop`, look at it on theme 12, and when it's approved merge to
 `main` and update theme 8 from the admin.
 
-**Unmerged:** nothing. `main` and `develop` are both at `dff4bde` (merged and pushed
-2026-09-15). Working tree clean.
+**Unmerged:** nothing. `main` and `develop` are both at `2938ed9` (merged and pushed
+2026-10-27). Working tree clean.
 
-**Theme 8 needs updating from admin** to pull `dff4bde`. Click **Check for updates** on
-**Rentman Community** (theme 8), NOT on the DEV theme — see the trap below, this has
-gone wrong before. It brings the Events block and the activity-indicator contrast fix
-to the live site.
+**Theme 8 needs updating from admin** — click **Check for updates** on **Rentman
+Community** (theme 8), NOT the DEV theme. That brings dark mode, the mobile Events
+block, and the tile/footer work live, and also writes `eae8e6` into theme 8's own
+"Rentman Dark" palette from `about.json`, so its colours come good without touching
+admin.
 
-Also check theme 8's own settings afterwards: `category_grid_excluded` and the new
-`events_block_limit` are per-theme and do not arrive with the code.
+**Dark mode is NOT yet reachable by members** and will not be until a dark colour
+scheme is assigned to theme 8. Do that only AFTER the update above: the moment it is
+assigned, everyone whose OS is in dark mode gets it, with no opt-in
+(`dark_elements_media_query` returns `(prefers-color-scheme: dark)`).
 
 ## What's built
 
