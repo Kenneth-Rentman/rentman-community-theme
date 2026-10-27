@@ -218,6 +218,29 @@ Next action first.
   been clicking all session, so this goes wrong quietly: git is correct, `main` is
   correct, and the live site is unchanged. Symptom when the sprite is behind is blank
   tiles, because categories point at `rentman-*` ids the old sprite has no symbols for.
+- **Colour palettes are per-theme records that SHARE a display name, and admin
+  gives no hint which theme you are editing.** `about.json`'s `color_schemes` block
+  creates one `ColorScheme` row per theme, so "Rentman Dark" exists more than once —
+  id 23 on theme 8, id 27 on theme 12. Editing the wrong one looks like the change
+  simply not working. This cost a round trip: a fix was applied to theme 8's copy
+  while theme 12 was being previewed.
+  To find which record is actually live, read the served stylesheet filename —
+  `color_definitions_<name>_<schemeId>_<themeId>_<digest>.css` names both ids. Or
+  `GET /admin/color_schemes.json`, which lists every palette with its `theme_id`.
+- **Theme 12's dark palette is now a STANDALONE palette, not a theme-owned one.**
+  "Rentman Dark Dev" (id 29) has `theme_id: null` and is assigned to theme 12 as its
+  dark scheme. `about.json` cannot manage it — a git update would write to the
+  theme-owned copy (id 27), which is now unused. So dark-scheme colour changes must
+  be made in admin on id 29, and mirrored into `about.json` by hand for fresh
+  installs. Worth collapsing back to a theme-owned palette before this is merged.
+- **The dark neutral ramp inherits the foreground's SATURATION.** Discourse builds
+  `--primary-high` / `-medium` / `-low` by scaling lightness and keeping hue and
+  saturation. The original dark `primary` was brand beige `#eee9e1` at 28%
+  saturation, so every derived grey came out brown — sidebar links `#c4b397`, read
+  topic titles `#b39d7a`. Light mode escaped it only because `#202121` is 1.5%
+  saturated. Fixed by dropping dark `primary` to `#eae8e6` (same hue, 8%), which is
+  indistinguishable at full strength and neutral through the mid-tones. If anyone
+  "restores the brand beige" here, the brown comes back.
 - **Theme settings do NOT travel with a git update.** Every value in `settings.yml` is
   stored per theme, so theme 8 keeps its own `category_grid_excluded` and its own hero
   CTA labels and URLs no matter what code arrives. After any merge, walk theme 8's

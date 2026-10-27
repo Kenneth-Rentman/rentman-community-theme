@@ -25,12 +25,12 @@
       "hover": "f8f6f3"
     },
     "Rentman Dark": {
-      "primary": "eee9e1",
+      "primary": "eae8e6",
       "secondary": "202121",
       "tertiary": "ff5e1d",
       "quaternary": "d9d4cd",
       "header_background": "080808",
-      "header_primary": "eee9e1",
+      "header_primary": "eae8e6",
       "highlight": "fcbd01",
       "danger": "d40000",
       "success": "2aba67",
