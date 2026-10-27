@@ -37,7 +37,7 @@
   --rentman-beige-soft: #f3efea;
   --rentman-beige-muted: #f8f6f3;
   --rentman-beige-dark: #d9d4cd;
-  --rentman-ink: #202121;
+  --rentman-ink: var(--primary);
   --rentman-black: #080808;
   --rentman-green: #2aba67;
   --rentman-yellow: #fcbd01;
@@ -99,16 +99,16 @@
   // washed out and peachy. Crispness comes from definite borders — rentman.io
   // uses ink outlines 28x and #d9d4cd 21x, not a single faint hairline.
   // ---------------------------------------------------------------------------
-  --rentman-page-bg: #ffffff;
-  --rentman-band: #eee9e1; // deliberate panels/bands, never the ground
-  --rentman-border: #d9d4cd; // definite edges: cards, banner, header
-  --rentman-hairline: #eee9e1; // quiet separators: list rows
-  --rentman-tile: #f4f4f4; // neutral grey tile, rentman.io's own
+  --rentman-page-bg: var(--secondary);
+  --rentman-band: var(--primary-very-low); // deliberate panels/bands, never the ground
+  --rentman-border: var(--primary-low); // definite edges: cards, banner, header
+  --rentman-hairline: var(--primary-very-low); // quiet separators: list rows
+  --rentman-tile: var(--primary-very-low); // neutral grey tile, rentman.io's own
 
   // Muted text is ink at 65%, not a cool grey — it stays in the same family
   // as the body colour instead of introducing a second temperature. ~5.2:1.
-  --rentman-muted: rgba(32, 33, 33, 0.65);
-  --rentman-muted-text: rgba(32, 33, 33, 0.65);
+  --rentman-muted: rgba(var(--primary-rgb), 0.65);
+  --rentman-muted-text: rgba(var(--primary-rgb), 0.65);
 
   // -------------------------------------------------------------------------
   // Colour system — orange is an ACCENT, never text
@@ -146,7 +146,7 @@
   // Secondary buttons carry the beige, exactly as rentman.io does with
   // "Talk to an expert" / "See all integrations". Ink on #eee9e1 is 12.7:1.
   --d-button-default-bg-color: var(--rentman-band);
-  --d-button-default-bg-color--hover: var(--rentman-beige-dark);
+  --d-button-default-bg-color--hover: var(--primary-low);
 
   // Primary button: ink surface, white text — 15.9:1
   //
@@ -154,11 +154,11 @@
   // #585858 is what the Support Center's `opacity: .75` on #202121 actually
   // resolves to over white, so this matches it while keeping the label crisp
   // (opacity would fade the text too). White on it is 7.1:1.
-  --rentman-ink-hover: #585858;
+  --rentman-ink-hover: var(--primary-high);
   --d-button-primary-bg-color: var(--rentman-ink);
   --d-button-primary-bg-color--hover: var(--rentman-ink-hover);
-  --d-button-primary-text-color: #fff;
-  --d-button-primary-icon-color: #fff;
+  --d-button-primary-text-color: var(--secondary);
+  --d-button-primary-icon-color: var(--secondary);
 }
 
 body {
@@ -439,7 +439,7 @@ body {
 // loads after this theme.
 
 .category-box {
-  background: #fff !important;
+  background: var(--secondary) !important;
   border: 1px solid var(--rentman-border) !important;
   border-radius: var(--rentman-radius-xl) !important;
   overflow: hidden;
@@ -558,7 +558,7 @@ body.navigation-topics {
     flex: 0 0 auto;
     // Same 10% ink ring as the grid tiles, for the same reason: beige and
     // yellow are within 1.7:1 of the sidebar ground and need an edge.
-    box-shadow: inset 0 0 0 1px rgba(32, 33, 33, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(var(--primary-rgb), 0.1);
 
     // Fallback fill, so this degrades to "right for dark tiles" instead of to
     // "inverted" when the rentman-sidebar-tiles stylesheet is missing.
@@ -648,7 +648,7 @@ body.navigation-topics {
   gap: 12px;
   min-width: 0;
   padding: 12px 14px;
-  background: #fff;
+  background: var(--secondary);
   border: 1px solid var(--rentman-border);
   border-radius: var(--rentman-radius-xl);
   transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
@@ -656,7 +656,7 @@ body.navigation-topics {
   &:hover {
     border-color: var(--rentman-orange);
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(32, 33, 33, 0.07);
+    box-shadow: 0 8px 18px rgba(var(--primary-rgb), 0.07);
     text-decoration: none;
   }
 
@@ -677,7 +677,7 @@ body.navigation-topics {
     // 1.69 — and without an edge they read as a glyph floating in nothing. A
     // 10% ink ring defines them and is invisible on the dark tiles, so it
     // works for any palette we land on rather than only the current one.
-    box-shadow: inset 0 0 0 1px rgba(32, 33, 33, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(var(--primary-rgb), 0.1);
 
     .d-icon {
       width: 16px;
@@ -949,7 +949,7 @@ body.navigation-topics {
   &__primary,
   &__primary:visited {
     background: var(--rentman-ink);
-    color: #fff;
+    color: var(--secondary);
     font-size: 15px;
     font-weight: 600;
     padding: 11px 20px;
@@ -958,7 +958,7 @@ body.navigation-topics {
 
     &:hover {
       background: var(--rentman-ink-hover);
-      color: #fff;
+      color: var(--secondary);
     }
   }
 
@@ -966,7 +966,7 @@ body.navigation-topics {
   &__secondary,
   &__secondary:visited {
     color: var(--rentman-ink);
-    border: 1.5px solid rgba(32, 33, 33, 0.3);
+    border: 1.5px solid rgba(var(--primary-rgb), 0.3);
     border-radius: var(--rentman-radius);
     padding: 9.5px 18px;
     font-size: 15px;
@@ -974,7 +974,7 @@ body.navigation-topics {
     transition: background 0.15s ease, border-color 0.15s ease;
 
     &:hover {
-      background: rgba(32, 33, 33, 0.06);
+      background: rgba(var(--primary-rgb), 0.06);
       border-color: var(--rentman-ink);
       color: var(--rentman-ink);
     }
