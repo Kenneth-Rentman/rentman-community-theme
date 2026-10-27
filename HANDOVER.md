@@ -218,21 +218,24 @@ Next action first.
   been clicking all session, so this goes wrong quietly: git is correct, `main` is
   correct, and the live site is unchanged. Symptom when the sprite is behind is blank
   tiles, because categories point at `rentman-*` ids the old sprite has no symbols for.
-- **Colour palettes are per-theme records that SHARE a display name, and admin
-  gives no hint which theme you are editing.** `about.json`'s `color_schemes` block
-  creates one `ColorScheme` row per theme, so "Rentman Dark" exists more than once —
-  id 23 on theme 8, id 27 on theme 12. Editing the wrong one looks like the change
-  simply not working. This cost a round trip: a fix was applied to theme 8's copy
-  while theme 12 was being previewed.
-  To find which record is actually live, read the served stylesheet filename —
-  `color_definitions_<name>_<schemeId>_<themeId>_<digest>.css` names both ids. Or
+- **`about.json` OWNS the colour palettes. Admin edits to them are temporary.**
+  `RemoteTheme#update_theme_color_schemes` finds each scheme by name and assigns every
+  colour unconditionally — `color_scheme_color.hex = override || color[:hex]` — so any
+  palette edit made in admin is overwritten the next time that theme updates from git.
+  It also *deletes* theme-owned palettes whose names are absent from `about.json`.
+  Change palette colours in `about.json` and update the theme; use admin only to try
+  something, knowing it will not survive.
+  (An earlier note here claimed about.json skipped non-`remote_copy` schemes. It does
+  not — that check governs deletion of schemes missing from the file, not updates.)
+- **Each theme gets its OWN copy of every palette, so names repeat.** "Rentman Dark"
+  exists once per theme — id 23 on theme 8, id 27 on theme 12. Admin does label each
+  palette card with its owning theme underneath the name, so they are distinguishable;
+  a palette with NO theme label is a standalone one that `about.json` cannot manage.
+  Avoid creating standalone palettes: theme 12 briefly used one, which quietly stopped
+  it being a faithful preview of what theme 8 would render.
+  To confirm which record is actually live, read the served stylesheet filename —
+  `color_definitions_<name>_<schemeId>_<themeId>_<digest>.css` names both ids — or
   `GET /admin/color_schemes.json`, which lists every palette with its `theme_id`.
-- **Theme 12's dark palette is now a STANDALONE palette, not a theme-owned one.**
-  "Rentman Dark Dev" (id 29) has `theme_id: null` and is assigned to theme 12 as its
-  dark scheme. `about.json` cannot manage it — a git update would write to the
-  theme-owned copy (id 27), which is now unused. So dark-scheme colour changes must
-  be made in admin on id 29, and mirrored into `about.json` by hand for fresh
-  installs. Worth collapsing back to a theme-owned palette before this is merged.
 - **The dark neutral ramp inherits the foreground's SATURATION.** Discourse builds
   `--primary-high` / `-medium` / `-low` by scaling lightness and keeping hue and
   saturation. The original dark `primary` was brand beige `#eee9e1` at 28%
