@@ -410,6 +410,28 @@ body {
   color: var(--rentman-orange);
 }
 
+// --- Category badge icons --------------------------------------------------
+//
+// Discourse draws the small category glyph in the category's own colour, set as
+// an inline custom property on the badge wrapper:
+//   <a class="badge-category__wrapper" style="--category-badge-color: #202121">
+//
+// Every category here is #202121, which is also the dark page background, so in
+// dark mode these rendered at a contrast ratio of exactly 1 — present in the
+// DOM, invisible on screen, in topic lists and on topic pages alike.
+//
+// Same answer as the grid and sidebar tiles: take the colour from the scheme
+// instead of the category. --primary resolves to #202121 in light, so light mode
+// is unchanged, and to #eae8e6 in dark, which measures 13.21:1.
+//
+// !important is required. Discourse sets `color` on the icon itself at matching
+// specificity, and it is `color` that matters rather than `fill` — the sprite's
+// symbols carry fill="currentColor" as a presentation attribute, which an
+// inherited CSS fill cannot override. Setting fill alone changes nothing visible.
+.badge-category.--style-icon .d-icon {
+  color: var(--primary) !important;
+}
+
 // --- Topic list ------------------------------------------------------------
 
 .topic-list,

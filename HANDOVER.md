@@ -174,9 +174,12 @@ Next action first.
 - **Mobile** — two fixes, no systematic review. Discourse's mobile view is user-agent
   based (`body.mobile-view`), so viewport emulation does *not* trigger it. Mobile bugs
   have to be checked on a real device.
-- **Category icons elsewhere** — topic-list badges and category pages still use
-  Discourse's glyph tint. Same latent contrast problem as the sidebar had, smaller
-  surfaces. Harmless while the palette is black; revisit if it ever isn't.
+- **Category badge icons are fixed** (topic lists, topic pages). They were drawn in
+  the category colour via an inline `--category-badge-color` on the badge wrapper, so
+  in dark mode they sat at contrast 1 — rendered but invisible. Now take `--primary`,
+  which is unchanged in light and 13.21:1 in dark. An earlier note here called this
+  "harmless while the palette is black": that was true of light mode and exactly
+  backwards for dark, where black-on-black is the failure.
 - **SSO** — DiscourseConnect is exclusive, OIDC is additive; existing accounts link by
   verified email.
 - **Dark mode** — broken, but inert: no dark scheme is offered to members.
